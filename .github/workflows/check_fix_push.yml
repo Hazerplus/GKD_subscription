@@ -1,56 +1,16 @@
-name: check_fix_push
+name: upstream-check-fix-push-disabled
 
+# The upstream workflow had broad write permission and pushed formatter changes.
+# Fork validation is intentionally read-only in custom-pr-check.yml.
 on:
-  push:
-    branches:
-      - '**'
+  workflow_dispatch:
 
-permissions: write-all
+permissions:
+  contents: read
 
 jobs:
-  check:
+  disabled:
+    if: ${{ false }}
     runs-on: ubuntu-latest
-    if: |
-      ${{ github.event.head_commit.message!='chore(actions): check_format_lint' }}
     steps:
-      - name: 检出仓库代码
-        uses: actions/checkout@v7
-
-      - name: 启用 corepack 并安装 pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-
-      - name: 配置 Node.js 运行环境
-        uses: actions/setup-node@v6
-        with:
-          node-version: 25
-          cache: pnpm
-
-      - name: 安装项目依赖
-        run: pnpm install
-
-      - name: 执行项目检查
-        run: pnpm run check
-
-      - name: 执行代码格式化
-        run: pnpm run format
-
-      - name: 执行代码静态检查
-        run: pnpm run lint
-
-      - name: 提交自动修复结果
-        id: commit
-        run: |
-          git config --local user.email github-actions[bot]@users.noreply.github.com
-          git config --local user.name github-actions[bot]
-          git status --porcelain
-          git --no-pager diff
-          git commit -a -m "chore(actions): check_format_lint"
-        continue-on-error: true
-
-      - name: 推送修复后的代码
-        uses: ad-m/github-push-action@master
-        if: ${{ steps.commit.outcome == 'success' }}
-        with:
-          branch: ${{ github.ref }}
+      - run: echo 'Use custom-pr-check in this fork.'

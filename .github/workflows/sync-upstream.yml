@@ -1,0 +1,247 @@
+name: sync-upstream
+
+on:
+  schedule:
+    # Upstream publishes at 19:00 UTC; wait 2.5 hours before syncing.
+    - cron: '30 21 * * *'
+  workflow_dispatch:
+    inputs:
+      allow_upstream_workflow_changes:
+        description: Acknowledge reviewed upstream workflow changes
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sync-upstream-main
+  cancel-in-progress: false
+
+env:
+  GH_REPO: ${{ github.repository }}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out fork
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Configure Git and fetch upstream
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config core.hooksPath /dev/null
+          git remote add upstream https://github.com/Lin-arm/GKD_subscription.git 2>/dev/null || true
+          git fetch --no-tags --prune upstream main
+
+      - name: Stop for unreviewed upstream workflow changes
+        env:
+          ALLOW_WORKFLOW_CHANGES: ${{ inputs.allow_upstream_workflow_changes || false }}
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          changed=$(git diff --name-only HEAD...upstream/main -- .github/workflows)
+          if [ -z "$changed" ] || [ "$ALLOW_WORKFLOW_CHANGES" = 'true' ]; then
+            exit 0
+          fi
+
+          title='Upstream sync blocked: workflow files changed'
+          {
+            echo 'The scheduled upstream sync stopped before merging because upstream workflow files changed:'
+            echo
+            printf '```text\n%s\n```\n' "$changed"
+            echo
+            echo "Fork commit: $(git rev-parse HEAD)"
+            echo "Upstream commit: $(git rev-parse upstream/main)"
+            echo
+            echo 'Review the workflow diff, then manually run **sync-upstream** with **allow_upstream_workflow_changes** enabled.'
+            echo 'The fork keeps its own hardened workflows after acknowledging the upstream change.'
+            echo
+            echo "Run: $RUN_URL"
+          } >/tmp/upstream-workflow-change.md
+
+          existing=$(gh issue list --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body-file /tmp/upstream-workflow-change.md
+          else
+            gh issue comment "$existing" --body-file /tmp/upstream-workflow-change.md
+          fi
+          exit 1
+
+      - name: Merge upstream and preserve fork-owned paths
+        id: merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          old_head=$(git rev-parse HEAD)
+          upstream_head=$(git rev-parse upstream/main)
+          set +e
+          git merge --no-commit --no-ff upstream/main
+          merge_status=$?
+          set -e
+
+          # Keep all fork-owned paths exactly as they were before the merge.
+          # This also prevents newly added upstream workflows from activating.
+          git restore --source="$old_head" --staged --worktree -- \
+            README.md .github/workflows custom custom-dist
+
+          conflicts=$(git diff --name-only --diff-filter=U)
+          if [ -n "$conflicts" ]; then
+            title='Upstream sync blocked: merge conflict'
+            {
+              echo 'The upstream sync could not be merged automatically.'
+              echo
+              printf '```text\n%s\n```\n' "$conflicts"
+              echo
+              echo "Fork commit: $old_head"
+              echo "Upstream commit: $upstream_head"
+              echo
+              echo 'Fork-owned paths were already restored; the files above still need manual review.'
+              echo
+              echo "Run: $RUN_URL"
+            } >/tmp/upstream-merge-conflict.md
+
+            existing=$(gh issue list --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
+            if [ -z "$existing" ]; then
+              gh issue create --title "$title" --body-file /tmp/upstream-merge-conflict.md
+            else
+              gh issue comment "$existing" --body-file /tmp/upstream-merge-conflict.md
+            fi
+            git merge --abort || true
+            exit 1
+          fi
+
+          if [ "$merge_status" -ne 0 ]; then
+            echo 'All reported conflicts were resolved by the fork-owned path policy.'
+          fi
+          echo 'changed=true' >> "$GITHUB_OUTPUT"
+          echo "old_head=$old_head" >> "$GITHUB_OUTPUT"
+          echo "upstream_head=$upstream_head" >> "$GITHUB_OUTPUT"
+          echo "expected_tree=$(git write-tree)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up pnpm
+        if: steps.merge.outputs.changed == 'true'
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+
+      - name: Set up Node.js
+        if: steps.merge.outputs.changed == 'true'
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.merge.outputs.changed == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate and rebuild merged subscription
+        id: validate
+        if: steps.merge.outputs.changed == 'true'
+        continue-on-error: true
+        env:
+          EXPECTED_TREE: ${{ steps.merge.outputs.expected_tree }}
+          OLD_HEAD: ${{ steps.merge.outputs.old_head }}
+        run: |
+          set -euo pipefail
+          {
+            pnpm exec tsc --noEmit -p custom/tsconfig.json
+            pnpm exec tsx custom/merge-apps.test.ts
+            pnpm exec tsx custom/check.ts
+            pnpm exec prettier --check "custom/**/*.{ts,json,md}"
+            pnpm exec eslint --max-warnings=0 "custom/**/*.ts"
+            pnpm exec tsx custom/build.ts
+
+            grep -q '^\{id:142848377,version:[0-9][0-9]*\}$' custom-dist/gkd.version.json5
+            grep -q "^\{id:142848377,name:'Hazerplus 的 GKD 订阅'.*updateUrl:'https://raw.githubusercontent.com/Hazerplus/GKD_subscription/main/custom-dist/gkd.json5'" custom-dist/gkd.json5
+
+            # Remove any index/worktree changes caused by install/build outside
+            # the generated custom output, then prove the merge index is intact.
+            git restore --source="$OLD_HEAD" --staged --worktree -- \
+              README.md .github/workflows custom
+            git restore --source="$OLD_HEAD" --staged -- custom-dist
+            test "$(git write-tree)" = "$EXPECTED_TREE"
+            git diff --quiet -- . ':(exclude)custom-dist'
+          } 2>&1 | tee /tmp/upstream-sync-validation.log
+
+      - name: Report validation failure
+        if: steps.merge.outputs.changed == 'true' && steps.validate.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title='Upstream sync blocked: validation failed'
+          {
+            echo 'The upstream merge was prepared locally, but validation, build, or index-integrity checks failed. Nothing was pushed.'
+            echo
+            echo "Fork commit: ${{ steps.merge.outputs.old_head }}"
+            echo "Upstream commit: ${{ steps.merge.outputs.upstream_head }}"
+            echo
+            echo '<details><summary>Last 200 log lines</summary>'
+            echo
+            echo '```text'
+            tail -n 200 /tmp/upstream-sync-validation.log
+            echo '```'
+            echo '</details>'
+            echo
+            echo "Run: $RUN_URL"
+          } >/tmp/upstream-validation-failure.md
+
+          existing=$(gh issue list --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body-file /tmp/upstream-validation-failure.md
+          else
+            gh issue comment "$existing" --body-file /tmp/upstream-validation-failure.md
+          fi
+          git merge --abort || true
+          exit 1
+
+      - name: Commit synchronized source and generated output
+        if: steps.merge.outputs.changed == 'true' && steps.validate.outcome == 'success'
+        run: |
+          git add custom-dist
+          git -c core.hooksPath=/dev/null commit -m "chore: sync upstream ${{ steps.merge.outputs.upstream_head }}"
+
+      - name: Push synchronized main branch
+        if: steps.merge.outputs.changed == 'true' && steps.validate.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if git -c core.hooksPath=/dev/null push \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" HEAD:main; then
+            exit 0
+          fi
+
+          title='Upstream sync blocked: push failed'
+          {
+            echo 'The upstream merge and custom build passed, but the resulting merge commit could not be pushed to `main`.'
+            echo
+            echo "Prepared commit: $(git rev-parse HEAD)"
+            echo
+            echo 'Check branch protection and workflow token permissions.'
+            echo
+            echo "Run: $RUN_URL"
+          } >/tmp/upstream-push-failure.md
+
+          existing=$(gh issue list --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body-file /tmp/upstream-push-failure.md
+          else
+            gh issue comment "$existing" --body-file /tmp/upstream-push-failure.md
+          fi
+          exit 1

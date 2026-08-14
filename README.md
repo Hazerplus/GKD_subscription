@@ -1,109 +1,52 @@
-<!-- # @AIsouler/GKD_subscription (Fork版) -->
+# Hazerplus 的 GKD 订阅
 
-<!-- [![SVG Banners](https://svg-banners.vercel.app/api?type=luminance&text1=GKD_subscription&width=800&height=300)](https://github.com/Lin-arm/GKD_subscription) -->
+这是基于 [`Lin-arm/GKD_subscription`](https://github.com/Lin-arm/GKD_subscription) 持续同步的个人 GKD 订阅，并通过隔离的自定义 Overlay 增加或替换规则。
 
-[![SVG Banners](https://svg-banners.vercel.app/api?type=origin&text1=GKD第三方订阅规则&text2=💖%20GKD_subscription&width=800&height=350)](https://github.com/Lin-arm/GKD_subscription)
+## 订阅地址
 
-[![Release](https://img.shields.io/badge/发行版-v564-blue)](https://github.com/Lin-arm/GKD_subscription/releases/latest)
-[![已适配应用](https://img.shields.io/badge/已适配应用-968-brightgreen)](./dist/README.md#应用规则)
-[![全局规则组](https://img.shields.io/badge/全局规则组-3-blueviolet)](./dist/README.md#全局规则)
-[![应用规则组](https://img.shields.io/badge/应用规则组-2397-orange)](./dist/README.md#应用规则)
-[![Telegram Chat](https://img.shields.io/badge/Telegram-交流群-blue.svg?logo=telegram)](https://t.me/+8L4eHePgYEZmY2M9)
+```text
+https://raw.githubusercontent.com/Hazerplus/GKD_subscription/main/custom-dist/gkd.json5
+```
 
-## 📢声明
+版本检查文件：
 
-- **本仓库为原仓库停更后，由社区续更的Fork版**
-- **禁止在国内平台传播**
-- **本仓库仅供学习交流使用**
-- **精力有限，随缘更新**
+```text
+https://raw.githubusercontent.com/Hazerplus/GKD_subscription/main/custom-dist/gkd.version.json5
+```
 
-## 🚀订阅
+> 首次切换时建议暂时保留原订阅，确认新订阅可以拉取、更新和正常触发后，再停用旧订阅。
 
-复制以下任一链接到 GKD 订阅的右下角 **+** 号那里导入，即可使用
+## 维护方式
 
-- 感谢由 CXPLAY 提供域名的CF源 (国内可用)
+- 上游源码和上游 `dist/` 保持原样，便于同步和审计。
+- 个人规则位于 [`custom/`](./custom/README.md)。
+- 最终订阅输出到 `custom-dist/`，使用独立订阅 ID 和版本序列。
+- 默认追加规则；替换上游规则必须显式声明目标 key 和预期名称。
+- CI 会检查 key/名称冲突、失效替换目标、GKD 选择器、快照链接和分类。
 
-  ```txt
-  https://gkd667.vv.ax/gkd.json5
-  ```
+## 自动同步与安全边界
 
-- CloudFlare源 (国内可用)
+- `sync-upstream` 每天北京时间 05:30 检查上游，晚于上游计划发布时间约 2.5 小时。
+- `README.md`、`.github/workflows/`、`custom/` 和 `custom-dist/` 由本 fork 管理，同步时不会被上游覆盖。
+- 上游 workflow 一旦变化，定时同步会停止并创建 Issue；人工审查后才能显式确认该变化并继续。
+- 其余 Git 冲突、构建失败、规则冲突或索引完整性异常同样会停止推送并创建 Issue，不会静默覆盖自定义规则。
+- 上游继承的发布、自动修复、Issue 和 PR 工作流已保留为只读占位并禁用；有效工作流只有本 fork 的只读校验和受控同步。
+- Actions 使用精确权限、固定 action commit；执行合并后的上游代码时不持久化可写 Git 凭据。
 
-  ```txt
-  https://gkd-subscription-667.pages.dev/gkd.json5
-  ```
+## 本地构建
 
-- GitHub源 (国内需要魔法)
+需要 Node.js 22+ 和 pnpm：
 
-  ```txt
-  https://raw.githubusercontent.com/Lin-arm/GKD_subscription/main/dist/gkd.json5
-  ```
+```sh
+pnpm install --frozen-lockfile
+pnpm exec tsc --noEmit -p custom/tsconfig.json
+pnpm exec tsx custom/merge-apps.test.ts
+pnpm exec tsx custom/check.ts
+pnpm exec tsx custom/build.ts
+```
 
-<details>
-<summary>点击展开备用源</summary>
+## 上游与授权说明
 
-- Xget源 (国内可用)
+规则主体来源于 [`Lin-arm/GKD_subscription`](https://github.com/Lin-arm/GKD_subscription)，本仓库保留 GitHub fork 关系和上游署名。
 
-  ```txt
-  https://xget.xi-xu.me/gh/Lin-arm/GKD_subscription/raw/main/dist/gkd.json5
-  ```
-
-- jsdelivr源 (国内可用但可能不稳定,更新滞后24h)
-
-  ```txt
-  https://cdn.jsdelivr.net/gh/Lin-arm/GKD_subscription@main/dist/gkd.json5
-  ```
-
-</details>
-
-<!-- > 当前版本: v564
-> 
-> 当前订阅文件已适配 968 个应用，共有 2397 应用规则组，3 全局规则组
-> 
-> 查看 [适配 APP 列表](./dist/README.md) -->
-
-## 📑说明
-
-- **致力于编写效率最高、误触最低、覆盖最全面的规则**
-
-- **已适配的规则需要等待发布更新才能生效，北京时间每天凌晨3点会自动发布更新，如果规则没有改动则不会发布更新，在 `GKD订阅界面` 下拉就能检测是否有更新 -> [点击查看更新日志](https://github.com/Lin-arm/GKD_subscription/releases)**
-
-- **仅启用 `开屏广告` 一类规则，其它所有规则均需用户手动打开，规则类别里可以批量开启某一类规则，建议按需开启规则，不要无脑开启规则，开启过多规则可能造成规则阻塞从而导致规则触发缓慢甚至不触发，并且规则开启越多耗电也越多 -> [点击查看耗电说明](https://gkd.li/guide/faq#power)**
-
-- **请求适配或报告问题 -> [点击反馈](https://github.com/Lin-arm/GKD_subscription/issues/new/choose)**
-
-- **交流讨论（不要在这里反馈） -> [点击查看或开启讨论](https://github.com/Lin-arm/GKD_subscription/discussions)**
-
-- **欢迎贡献规则，提交pr前请确认您已仔细阅读 [贡献指南](./CONTRIBUTING.md) 和 [API文档](https://gkd.li/api/)，规则编写可参考 [个人收集的通用规则以及适用场景](./docs/Selectors.md)**
-
-## 🌈其他
-
-- 在 [GKD官网](https://gkd.li/) 查看 [GKD基础使用教程](https://gkd.li/guide/) 、[常见问题](https://gkd.li/guide/faq) 以及 [API文档](https://gkd.li/api/)
-
-- 使用 [GKD网页审查工具增强脚本](https://github.com/adproqwq/MakeGKDInspectBetter) 可以高度自定义从网页复制出来的规则，提高规则编写效率
-
-- 安装 VS Code 插件 [GKD Toolkit](https://github.com/tianfangyetan1/vscode-gkd-toolkit) ，可以更方便的一次性打开多个快照
-
-- 体验 Plus 版的快照审查工具 [inspect-plus](https://github.com/cjy0812/inspect-plus)
-
-- 使用 [GKD订阅模板](https://github.com/gkd-kit/subscription-template) 快速构建自己的订阅
-
-- 相关教程/贡献此项目 -> 查看 [贡献指南](./CONTRIBUTING.md)
-
-## 🎉感谢以下项目
-
-- [gkd-kit/subscription](https://github.com/gkd-kit/subscription)
-- [AIsouler/GKD_subscription](https://github.com/AIsouler/GKD_subscription)
-
-## 🥇感谢以下开发者的贡献
-
-![img](https://contrib.rocks/image?repo=Lin-arm/GKD_subscription&max=200&_v=564)
-
-<!-- repobeats 已失效 -->
-<!-- ![Alt](https://repobeats.axiom.co/api/embed/db6f46a4bdc4e760fb51976db276f1febef5bdce.svg "报告分析图") -->
-
-## 📈Star History
-
-<!-- [![Star History Chart](https://api.star-history.com/chart?repos=Lin-arm/GKD_subscription&type=date&legend=top-left)](https://www.star-history.com/?repos=Lin-arm%2FGKD_subscription&type=date&legend=top-left) -->
-
-[![Star History Chart](https://starhistory.link/Lin-arm/GKD_subscription.svg?theme=rose&style=glass)](https://starhistory.link/Lin-arm/GKD_subscription)
+截至本 fork 建立时，上游仓库没有声明 `LICENSE` 文件，因此本仓库不会替上游宣称一个未声明的开源许可证。个人自定义部分同样暂不单独声明许可；如需再分发或商业使用，应先确认相应规则内容的授权条件。
