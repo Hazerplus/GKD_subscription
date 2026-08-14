@@ -6,9 +6,15 @@ import metadata from './metadata';
 import policy from './overlay-policy';
 
 const customApps = await loadCustomApps(`${import.meta.dirname}/apps`);
+const {
+  apps: upstreamApps = [],
+  categories,
+  globalGroups,
+} = upstreamSubscription;
 
 export default defineGkdSubscription({
-  ...upstreamSubscription,
   ...metadata,
-  apps: mergeApps(upstreamSubscription.apps ?? [], customApps, policy),
+  categories,
+  globalGroups,
+  apps: mergeApps(upstreamApps, customApps, policy),
 });
