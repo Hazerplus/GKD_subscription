@@ -466,6 +466,7 @@ export default defineGkdApp({
         'com.bytedance.ies.ugc.aweme.photos.detail.flow.page.FlowPageActivity',
         '.searcharticle.detail.ArticleDetailActivity',
         '.search.activity.SearchResultActivity',
+        '.detail.ultra.ui.UltraDetailActivity',
       ],
       rules: [
         {
@@ -489,6 +490,7 @@ export default defineGkdApp({
           snapshotUrls: [
             'https://i.gkd.li/i/29811099',
             'https://i.gkd.li/i/29811533',
+            'https://i.gkd.li/i/31308121',
           ],
         },
       ],
@@ -507,6 +509,7 @@ export default defineGkdApp({
       ],
       rules: [
         {
+          key: 1,
           matches: '@[clickable=true] > [text^="展开更多"]',
           snapshotUrls: [
             'https://i.gkd.li/i/25619324',
@@ -516,6 +519,12 @@ export default defineGkdApp({
             'https://e.gkd.li/c9f1e163-4fa9-42bb-b5a5-4c9de6f286c2',
             'https://e.gkd.li/afea1f82-e50c-4ef0-9f0a-a2ceec00c03b',
           ],
+        },
+        {
+          key: 2,
+          matches:
+            '[text^="展开更多"] <2 @[clickable=true][childCount=3] <<n ViewPager <(3,4) LinearLayout + [childCount=2] > [desc$="评论区"] + [vid="back_btn"]',
+          snapshotUrls: 'https://i.gkd.li/i/31308553',
         },
       ],
     },
