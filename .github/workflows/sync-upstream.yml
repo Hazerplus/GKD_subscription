@@ -41,41 +41,11 @@ jobs:
           git remote add upstream https://github.com/Lin-arm/GKD_subscription.git 2>/dev/null || true
           git fetch --no-tags --prune upstream main
 
-      - name: Stop for unreviewed upstream workflow changes
-        env:
-          ALLOW_WORKFLOW_CHANGES: ${{ inputs.allow_upstream_workflow_changes || false }}
-          GH_TOKEN: ${{ github.token }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          set -euo pipefail
-          changed=$(git diff --name-only HEAD...upstream/main -- .github/workflows)
-          if [ -z "$changed" ] || [ "$ALLOW_WORKFLOW_CHANGES" = 'true' ]; then
-            exit 0
-          fi
-
-          title='Upstream sync blocked: workflow files changed'
-          {
-            echo 'The scheduled upstream sync stopped before merging because upstream workflow files changed:'
-            echo
-            printf '```text\n%s\n```\n' "$changed"
-            echo
-            echo "Fork commit: $(git rev-parse HEAD)"
-            echo "Upstream commit: $(git rev-parse upstream/main)"
-            echo
-            echo 'Review the workflow diff, then manually run **sync-upstream** with **allow_upstream_workflow_changes** enabled.'
-            echo 'The fork keeps its own hardened workflows after acknowledging the upstream change.'
-            echo
-            echo "Run: $RUN_URL"
-          } >/tmp/upstream-workflow-change.md
-
-          existing=$(gh issue list --state open --search "$title in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
-          if [ -z "$existing" ]; then
-            gh issue create --title "$title" --body-file /tmp/upstream-workflow-change.md
-          else
-            gh issue comment "$existing" --body-file /tmp/upstream-workflow-change.md
-          fi
-          exit 1
-
+      # Workflows are fork-owned paths. The merge step below always restores
+      # the fork versions, so upstream workflow changes must not block source
+      # synchronization or silently replace the fork's hardened workflows.
+      # In particular, upstream write-enabled automation is intentionally not
+      # imported into this fork.
       - name: Merge upstream and preserve fork-owned paths
         id: merge
         env:
