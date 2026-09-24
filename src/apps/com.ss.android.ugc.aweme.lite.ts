@@ -179,11 +179,12 @@ export default defineGkdApp({
             'com.ss.android.ugc.aweme.detail.ui.DetailActivity',
           ],
           matches:
-            '([text$="广告 展开" || text$="广告 收起"][vid="desc"][visibleToUser=true]) || ([text="应用" || text="购物" || text$="游戏" || text="咨询" || text="子薇剧场" || text="预约"][text.length<6][index=1][visibleToUser=true])',
+            '([text$="广告 展开" || text$="广告 收起" || text$="广告 "][vid="desc"][visibleToUser=true]) || ([text="应用" || text="购物" || text$="游戏" || text="咨询" || text="子薇剧场" || text="预约"][text.length<6][index=1][visibleToUser=true])',
           snapshotUrls: [
             'https://i.gkd.li/i/29214101', // [text$="广告 展开"][vid="desc"]
             'https://i.gkd.li/i/29579093', // [text$="广告 展开"][vid="desc"]
             'https://i.gkd.li/i/29686900', // [text$="广告 收起"][vid="desc"]
+            'https://i.gkd.li/i/32619091', // [text$="广告 "][vid="desc"]
             'https://i.gkd.li/i/29214002', //游戏
 
             // 选择器参数大部分参考以下抖音快照:
@@ -242,8 +243,11 @@ export default defineGkdApp({
             top: 'width * 0.1972',
           },
           matches:
-            'ImageView[childCount=0] < @ViewGroup <<8 [id="android:id/content"]',
-          snapshotUrls: 'https://i.gkd.li/i/30505023',
+            'ImageView[childCount=0] < @ViewGroup <<(7,8) [id="android:id/content"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/30505023',
+            'https://i.gkd.li/i/32619430',
+          ],
           exampleUrls: 'https://e.gkd.li/c1314e68-d89a-42e3-af74-c50303f5546a',
         },
       ],
