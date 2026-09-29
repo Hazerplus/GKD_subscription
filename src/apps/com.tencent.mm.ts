@@ -151,8 +151,8 @@ export default defineGkdApp({
     },
     {
       key: 1,
-      name: '功能类-电脑微信快捷自动登录',
-      desc: '点击[登录]',
+      name: '功能类-微信设备快捷登录',
+      desc: '自动点击[登录]Win/Mac/平板/手表等客户端',
       fastQuery: true,
       matchTime: 10000,
       actionMaximum: 1,
@@ -162,16 +162,15 @@ export default defineGkdApp({
             '.plugin.webwx.ui.ExtDeviceWXLoginUI',
             '.ui.LauncherUI',
           ],
-          matches: [
-            '[text^="登录 Win" || text^="登录 Mac" || text^="登录桌面" || text^="登入 WeChat" || text^="Log in to Weixin for"][visibleToUser=true]',
-            '[text="登录" || text="登入" || text="Log In"][visibleToUser=true]',
-          ],
+          matches:
+            'RelativeLayout[vid!=null][left!=0] > ImageView[width = height] + TextView[text^="登录" || text^="登入" || text^="Log in to Weixin for"][visibleToUser=true] +n * > Button[text="登录" || text="登入" || text="Log In"][visibleToUser=true]',
           snapshotUrls: [
             'https://i.gkd.li/i/13522625', // zh_CN
             'https://i.gkd.li/i/13522577',
             'https://i.gkd.li/i/22356438', // En_US
             'https://i.gkd.li/i/25315046', // zh_TW
             'https://i.gkd.li/i/25815630', // Linux_zh_CN
+            'https://i.gkd.li/i/32761015', // 平板
           ],
           exampleUrls: 'https://e.gkd.li/4434dd75-1c9c-4c4a-a6fb-47490b751ec4',
         },
@@ -1207,6 +1206,24 @@ export default defineGkdApp({
           ],
           snapshotUrls: 'https://i.gkd.li/i/30642415',
           exampleUrls: 'https://e.gkd.li/0cb6496a-860e-41a5-b58a-16e07cc0214a',
+        },
+      ],
+    },
+    {
+      key: 57,
+      name: '功能类-登录-平板同时登',
+      desc: '自动点击[平板和手机同时登录]',
+      fastQuery: true,
+      actionMaximum: 1,
+      resetMatch: 'app',
+      matchTime: 10000,
+      activityIds: '.plugin.account.ui.LoginPasswordUI',
+      rules: [
+        {
+          matches:
+            '@Button[text="平板和手机同时登录"] - LinearLayout >3 [text="登录"]',
+          snapshotUrls: 'https://i.gkd.li/i/32757828',
+          exampleUrls: 'https://e.gkd.li/c3ca6901-9b7d-47d3-b879-69b615f8d09b',
         },
       ],
     },
