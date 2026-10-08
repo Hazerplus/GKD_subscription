@@ -1,0 +1,2 @@
+# The fork-owned npm toolchain must keep its lockfile despite the root ignore.
+!package-lock.json
