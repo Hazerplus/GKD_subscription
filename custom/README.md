@@ -24,11 +24,15 @@
 
 ```sh
 pnpm install --frozen-lockfile
+npm --prefix custom/tooling ci --ignore-scripts
 pnpm exec tsc --noEmit -p custom/tsconfig.json
 pnpm exec tsx custom/merge-apps.test.ts
 pnpm exec tsx custom/check.ts
+npm --prefix custom/tooling run check
 pnpm exec tsx custom/build.ts
 ```
+
+自定义源码的 Prettier/ESLint 工具和配置固定在 `custom/tooling/`，使用独立的 `package-lock.json`。上游可以更换自己的工具链，不会移除自定义检查所需的依赖。安装时使用 `npm ci --ignore-scripts`；检查命令显式使用这里的配置，不依赖上游根目录配置或全局工具。工具依赖升级应同时更新该目录的 package.json 与锁文件。
 
 `@gkd-kit/tools` 继续校验最终订阅的重复 key/名称、快照 URL、选择器语法和分类。这里另行检查了自定义规则中“未设置 key 的规则掩盖后续重复 key/name”的情况。
 

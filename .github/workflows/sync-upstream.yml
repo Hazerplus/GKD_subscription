@@ -117,7 +117,9 @@ jobs:
 
       - name: Install dependencies
         if: steps.merge.outputs.changed == 'true'
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile
+          npm --prefix custom/tooling ci --ignore-scripts
 
       - name: Validate and rebuild merged subscription
         id: validate
@@ -132,8 +134,8 @@ jobs:
             pnpm exec tsc --noEmit -p custom/tsconfig.json
             pnpm exec tsx custom/merge-apps.test.ts
             pnpm exec tsx custom/check.ts
-            pnpm exec prettier --check "custom/**/*.{ts,json,md}"
-            pnpm exec eslint --max-warnings=0 "custom/**/*.ts"
+            npm --prefix custom/tooling run check:format
+            npm --prefix custom/tooling run check:lint
             pnpm exec tsx custom/build.ts
 
             grep -q '^\{id:142848377,version:[0-9][0-9]*\}$' custom-dist/gkd.version.json5

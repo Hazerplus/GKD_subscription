@@ -1,0 +1,19 @@
+{
+  "name": "gkd-custom-quality-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:format": "cd ../.. && custom/tooling/node_modules/.bin/prettier --config custom/tooling/prettier.config.mjs --ignore-path custom/tooling/.prettierignore --check 'custom/**/*.{ts,json,md}'",
+    "check:lint": "cd ../.. && custom/tooling/node_modules/.bin/eslint --config custom/tooling/eslint.config.mjs --max-warnings=0 'custom/**/*.ts'",
+    "check": "npm run check:format && npm run check:lint"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.5.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-unused-imports": "4.4.1",
+    "prettier": "3.8.4",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.61.1"
+  }
+}

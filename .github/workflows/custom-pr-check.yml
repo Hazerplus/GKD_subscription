@@ -33,7 +33,9 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile
+          npm --prefix custom/tooling ci --ignore-scripts
 
       - name: Type-check custom overlay
         run: pnpm exec tsc --noEmit -p custom/tsconfig.json
@@ -45,10 +47,10 @@ jobs:
         run: pnpm exec tsx custom/check.ts
 
       - name: Check custom source formatting
-        run: pnpm exec prettier --check "custom/**/*.{ts,json,md}"
+        run: npm --prefix custom/tooling run check:format
 
       - name: Check custom source lint
-        run: pnpm exec eslint --max-warnings=0 "custom/**/*.ts"
+        run: npm --prefix custom/tooling run check:lint
 
       - name: Rebuild tracked custom output
         run: pnpm exec tsx custom/build.ts
