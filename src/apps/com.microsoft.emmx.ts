@@ -113,8 +113,11 @@ export default defineGkdApp({
       rules: [
         {
           matches:
-            '[text*="下载" || text*="下載" || text*="download"][visibleToUser=true] +2 [childCount=3] > [vid="button1"]',
-          snapshotUrls: 'https://i.gkd.li/i/30865007', //下载
+            '[text="取消"] <n [visibleToUser=true] > Button[text*="下载"][clickable=true]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/30865007', //  activityId=null
+            'https://i.gkd.li/i/33471516',
+          ],
           exampleUrls: 'https://e.gkd.li/df8b81cd-1bfa-402a-a317-610f9d713674',
         },
       ],
