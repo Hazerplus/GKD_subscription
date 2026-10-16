@@ -154,9 +154,10 @@ export default defineGkdApp({
       key: 7,
       name: '功能类-自动[展开]书籍简介',
       desc: '书单列表页/书籍详情页',
+      fastQuery: true,
       rules: [
         {
-          fastQuery: true,
+          key: 1,
           actionCd: 500,
           activityIds: [
             '.ui.activity.RecomBookListDetailActivity',
@@ -172,6 +173,21 @@ export default defineGkdApp({
             'https://e.gkd.li/48250906-5ae1-448e-84f8-900cdfbff970',
             'https://e.gkd.li/7f933b03-487c-48ad-825a-bb3a1ff08154',
           ],
+        },
+        {
+          key: 2,
+          actionCd: 2000,
+          forcedTime: 5000, //防止刚进书籍详情页时不触发
+          activityIds: '.flutter.QDBookDetailFlutterActivity',
+          matches:
+            '@ImageView[clickable=true] < View[desc.length>30] <n ScrollView < View < View < View < View < View < FrameLayout < [id="android:id/content"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33534760',
+            'https://i.gkd.li/i/33535207',
+            'https://i.gkd.li/i/33535541',
+          ],
+          excludeSnapshotUrls: 'https://i.gkd.li/i/33534953', //已展开
+          exampleUrls: 'https://e.gkd.li/c44b8465-e586-4dd7-8957-7e3c90097564',
         },
       ],
     },
