@@ -192,6 +192,23 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 8,
+      name: '功能类-自动[收起]书架上方推广',
+      desc: '点击1次[收起]',
+      rules: [
+        {
+          fastQuery: true,
+          matchTime: 10000,
+          actionMaximum: 1,
+          resetMatch: 'app',
+          activityIds: '.ui.activity.MainGroupActivity',
+          matches: '@[vid="operationItemCloseIcon"] - [text="收起"]',
+          snapshotUrls: 'https://i.gkd.li/i/33534248',
+          exampleUrls: 'https://e.gkd.li/d8f0794f-2cc4-463f-ae76-55a417ad4a5a',
+        },
+      ],
+    },
+    {
       key: 10,
       name: '功能类-扫描自动确认[登录]',
       desc: '点击[登录]',
