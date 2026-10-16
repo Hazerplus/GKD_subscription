@@ -154,9 +154,10 @@ export default defineGkdApp({
       key: 7,
       name: '功能类-自动[展开]书籍简介',
       desc: '书单列表页/书籍详情页',
+      fastQuery: true,
       rules: [
         {
-          fastQuery: true,
+          key: 1,
           actionCd: 500,
           activityIds: [
             '.ui.activity.RecomBookListDetailActivity',
@@ -172,6 +173,38 @@ export default defineGkdApp({
             'https://e.gkd.li/48250906-5ae1-448e-84f8-900cdfbff970',
             'https://e.gkd.li/7f933b03-487c-48ad-825a-bb3a1ff08154',
           ],
+        },
+        {
+          key: 2,
+          actionCd: 2000,
+          forcedTime: 5000, //防止刚进书籍详情页时不触发
+          activityIds: '.flutter.QDBookDetailFlutterActivity',
+          matches:
+            '@ImageView[clickable=true] < View[desc.length>30] <n ScrollView < View < View < View < View < View < FrameLayout < [id="android:id/content"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33534760',
+            'https://i.gkd.li/i/33535207',
+            'https://i.gkd.li/i/33535541',
+          ],
+          excludeSnapshotUrls: 'https://i.gkd.li/i/33534953', //已展开
+          exampleUrls: 'https://e.gkd.li/c44b8465-e586-4dd7-8957-7e3c90097564',
+        },
+      ],
+    },
+    {
+      key: 8,
+      name: '功能类-自动[收起]书架上方推广',
+      desc: '点击1次[收起]',
+      rules: [
+        {
+          fastQuery: true,
+          matchTime: 10000,
+          actionMaximum: 1,
+          resetMatch: 'app',
+          activityIds: '.ui.activity.MainGroupActivity',
+          matches: '@[vid="operationItemCloseIcon"] - [text="收起"]',
+          snapshotUrls: 'https://i.gkd.li/i/33534248',
+          exampleUrls: 'https://e.gkd.li/d8f0794f-2cc4-463f-ae76-55a417ad4a5a',
         },
       ],
     },
@@ -293,7 +326,7 @@ export default defineGkdApp({
     },
     {
       key: 16,
-      name: '功能类-订阅至最新章后自动[返回]',
+      name: '功能类-订阅后续章节后自动[返回]',
       desc: '返回小说正文页 (对于自定义订阅不可用)',
       fastQuery: true,
       activityIds: [
@@ -303,7 +336,7 @@ export default defineGkdApp({
       ],
       rules: [
         {
-          key: 1,
+          key: 10,
           name: '①未订最新章-待后续',
           action: 'none',
           actionMaximum: 1, //不点击,防止触发记录过多
@@ -311,8 +344,19 @@ export default defineGkdApp({
           snapshotUrls: 'https://i.gkd.li/i/26221300',
         },
         {
-          key: 2,
-          preKeys: [1],
+          key: 11,
+          name: '①未订后续章',
+          action: 'none',
+          forcedTime: 5000,
+          actionMaximum: 1, //不点击,防止触发记录过多
+          activityIds: '.flutter.BatchOrderDialogActivity',
+          matches:
+            '@[desc^="订阅后续付费章"] <2 View < View < View < View < FrameLayout < [id="android:id/content"]',
+          snapshotUrls: 'https://i.gkd.li/i/33536620', //起点480
+        },
+        {
+          key: 20,
+          preKeys: [10],
           name: '②已订最新章-返回键',
           action: 'back',
           matches: '[text="已订阅至最新章节"]',
@@ -324,9 +368,21 @@ export default defineGkdApp({
           exampleUrls: 'https://e.gkd.li/40df3df2-a5a5-4044-bf82-8622396bf39a',
         },
         {
-          key: 3,
-          preKeys: [2],
+          key: 21,
+          preKeys: [11],
+          name: '②提示已订阅n章',
+          action: 'none', //仅有订阅提示,无需操作
+          forcedTime: 10000,
+          activityIds: '.flutter.BatchOrderDialogActivity',
+          matches:
+            '@ImageView[desc^="已订阅"] <2 View < View < View < View < FrameLayout < [id="android:id/content"]',
+          snapshotUrls: 'https://i.gkd.li/i/33537343',
+        },
+        {
+          key: 30,
+          preKeys: [20, 21],
           name: '③退出目录',
+          forcedTime: 10000,
           matches:
             '@[vid="btnBack"][clickable=true] + * >6 [vid="layoutTitle"][text="目录"]',
           snapshotUrls: 'https://i.gkd.li/i/26221238',
