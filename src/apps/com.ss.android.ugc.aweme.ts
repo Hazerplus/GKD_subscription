@@ -784,5 +784,25 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 39,
+      name: '功能类-横屏直播时自动[关闭]弹幕',
+      desc: '点击1次[关闭弹幕]图标',
+      rules: [
+        {
+          fastQuery: true,
+          actionMaximum: 1,
+          activityIds: ['.live.LivePlayActivity', '.detail.ui.DetailActivity'],
+          matches:
+            '@[desc="关闭弹幕"] < [childCount=2] + * > [text="发弹幕说点什么…"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33672005', //横屏
+            'https://i.gkd.li/i/33672759', //横屏 [visibleToUser=false]
+          ],
+          excludeSnapshotUrls: 'https://i.gkd.li/i/33672707', //竖屏
+          exampleUrls: 'https://e.gkd.li/27cd54c6-0398-4e01-8b42-9fd9b963c514',
+        },
+      ],
+    },
   ],
 });
