@@ -43,7 +43,7 @@ export default defineGkdApp({
           actionMaximum: 5, // issues#252
           excludeMatches: '[text*="搜索"]',
           matches:
-            '[!(vid="item_view") && !(vid="card_view")] > [text*="跳过" || text*="Skip"][text.length<10][width<500 && height<300][visibleToUser=true]',
+            '[text*="跳过" || text*="Skip"][!(vid="text_view" || vid="title_view")][text.length<10][width<500 && height<300][visibleToUser=true]',
           snapshotUrls: [
             'https://i.gkd.li/i/12917990',
             'https://i.gkd.li/i/13211392',
@@ -52,9 +52,10 @@ export default defineGkdApp({
             'https://i.gkd.li/i/26328668', // .view.splash.SplashAdActivity
           ],
           excludeSnapshotUrls: [
-            'https://i.gkd.li/i/13247733', //搜索页 .view.splash.SplashAdActivity
-            'https://i.gkd.li/i/13296816',
-            'https://i.gkd.li/i/18245546',
+            'https://i.gkd.li/i/13247733', //排除 vid="text_view" , 搜索页 .view.splash.SplashAdActivity
+            'https://i.gkd.li/i/13296816', //排除 vid="title_view"
+            'https://i.gkd.li/i/18245546', //排除 vid="title_view"
+            'https://i.gkd.li/i/33674023', //排除 vid="title_view"
           ],
         },
         {

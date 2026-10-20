@@ -57,11 +57,12 @@ export default defineGkdApp({
             '.ui.cloudp2p.RichMediaActivity',
             '.module.sharelink.ChainVerifyActivity',
           ],
-          matches: '[text="立即更新"] -2 [text="下次再说"]', //使用ID会导致误触（例如删除确认https://i.gkd.li/i/13069049）
+          matches: '[text="立即更新"] -(1,2) [text="下次再说"]', //使用ID会导致误触（例如删除确认https://i.gkd.li/i/13069049）
           snapshotUrls: [
             'https://i.gkd.li/i/16118181',
             'https://i.gkd.li/i/24834209',
             'https://i.gkd.li/i/26574534',
+            'https://i.gkd.li/i/33673328', // 该快照是[设置]界面,手动检查更新的弹窗, activityId 不作匹配
           ],
         },
       ],

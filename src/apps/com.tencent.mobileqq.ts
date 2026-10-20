@@ -565,24 +565,32 @@ export default defineGkdApp({
     {
       key: 37,
       name: '分段广告-QQ空间空友爱看',
-      desc: '①点击[更多操作] ②点击[不感兴趣] ③选择原因 ④点击[提交]',
+      desc: '①点击右侧折叠 ②[不感兴趣/关闭推荐] ③选择原因 ④点击[提交]',
       fastQuery: true,
       activityIds:
         'com.qzone.reborn.feedpro.activity.QzoneFriendFeedProActivity',
       rules: [
         {
           key: 0,
-          name: '①更多操作',
+          name: '①点击右侧折叠',
           matches:
-            '@[desc="更多操作"][clickable=true][visibleToUser=true] <3 * +4 * >5 [text="空友爱看"]',
-          snapshotUrls: 'https://i.gkd.li/i/32656065',
+            '@[clickable=true][index=parent.childCount.minus(1)] -2 [text="空友爱看"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/32656065',
+            'https://i.gkd.li/i/33508601', //推荐
+            'https://i.gkd.li/i/33665642',
+          ],
         },
         {
           key: 1,
           preKeys: [0],
-          name: '②不感兴趣',
-          matches: '@[clickable=true] >2 [text="不感兴趣"]',
-          snapshotUrls: 'https://i.gkd.li/i/32656067',
+          name: '②不感兴趣/关闭推荐',
+          matches: '@[clickable=true] >2 [text="不感兴趣" || text="关闭推荐"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/32656067', //不感兴趣 (v9.3.60)
+            'https://i.gkd.li/i/33508604', //关闭推荐 (v9.2.90 旧版)
+            'https://i.gkd.li/i/33665763', //不感兴趣 (v9.3.75)
+          ],
         },
         {
           key: 2,
