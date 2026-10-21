@@ -42,8 +42,11 @@ export default defineGkdApp({
           key: 1,
           name: '点击[完成]',
           excludeMatches: '[text^="应用未安装" || text*="安装失败"]',
-          matches:
-            '[vid="done_button" || text="完成"][clickable=true][focusable=true]',
+          anyMatches: [
+            '[text="完成"][clickable=true][focusable=true]',
+            '@[clickable=true][focusable=true] >(1,2) [text="完成"]',
+          ],
+          // matches: '[vid="done_button" || text="完成"][clickable=true][focusable=true]',
           snapshotUrls: [
             'https://i.gkd.li/i/13206476', //D
             'https://i.gkd.li/i/13766420', //D
@@ -52,6 +55,7 @@ export default defineGkdApp({
             'https://i.gkd.li/i/14471862', //F
             'https://i.gkd.li/i/16550273', //B
             'https://i.gkd.li/i/25816401', //D
+            'https://i.gkd.li/i/33746542', //D
           ],
           excludeSnapshotUrls: 'https://i.gkd.li/i/26314449', // 安装失败停止点击
           exampleUrls: 'https://e.gkd.li/00166afa-f8cb-4389-87b0-948a5a75f3d5',
