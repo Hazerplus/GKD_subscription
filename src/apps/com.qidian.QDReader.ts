@@ -7,22 +7,28 @@ export default defineGkdApp({
     {
       key: 0,
       name: '开屏广告',
+      fastQuery: true,
       matchTime: 10000,
       actionMaximum: 1,
+      actionMaximumKey: 0,
       resetMatch: 'app',
       priorityTime: 10000,
       rules: [
         {
-          fastQuery: true,
-          action: 'clickCenter',
+          key: 0,
+          matches: '[vid="splash_skip_button"][clickable=true]',
+          snapshotUrls: 'https://i.gkd.li/i/33750455',
+        },
+        {
+          key: 1,
           matches:
-            '([text*="跳过"][!(text="跳过福利激励视频")][text.length<10][width<500 && height<300][visibleToUser=true]) || ([vid="splash_skip_button"][visibleToUser=true])',
-          exampleUrls: 'https://e.gkd.li/3e2357fd-dced-4929-85e0-a9a06ce5fea0',
-          snapshotUrls: [
-            'https://i.gkd.li/i/19580847',
-            'https://i.gkd.li/i/19633020',
+            '[text*="跳过"][text.length<10][clickable=true][width<500 && height<300]',
+          snapshotUrls: 'https://i.gkd.li/i/33750485',
+          excludeSnapshotUrls: [
+            'https://i.gkd.li/i/33630317', //用 [clickable=true] 排除 跳过福利激励视频
+            'https://i.gkd.li/i/33750400', //用 [clickable=true] 排除 找书时可跳过详情页
           ],
-          excludeSnapshotUrls: 'https://i.gkd.li/i/33630317', // 排除 跳过福利激励视频
+          exampleUrls: 'https://e.gkd.li/2c5cc57a-1e92-4e83-b31e-9342aa75034c',
         },
       ],
     },
