@@ -310,6 +310,14 @@ export default defineGkdApp({
       actionMaximum: 1,
       rules: [
         {
+          key: 0,
+          fastQuery: true,
+          activityIds: '.tblauncher.MainTabActivity',
+          matches:
+            'TextView[index=1][width<141 && height<141][visibleToUser=true] - [getChild(0).name$="Image"] < View < View < View < WebView < WebView < FrameLayout < [id="android:id/content"]',
+          snapshotUrls: 'https://i.gkd.li/i/33748842',
+        },
+        {
           key: 1,
           name: '点击正下方x关闭',
           activityIds: [
