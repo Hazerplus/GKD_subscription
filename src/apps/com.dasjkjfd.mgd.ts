@@ -17,10 +17,11 @@ export default defineGkdApp({
           key: 0,
           name: '卡片Ad',
           matches:
-            '@ImageView[width<66 && height<66][vid=null][desc=null][visibleToUser=true][index=parent.childCount.minus(1)] < FrameLayout[childCount=1] - LinearLayout > ImageView + [text^="下载" || text^="了解"]',
+            '@ImageView[width<66 && height<66][vid=null][desc=null][visibleToUser=true] < FrameLayout[childCount=1] - LinearLayout > ImageView + [text^="下载" || text^="了解" || text^="立即" || text^="马上" || text^="查看"][text.length<8]',
           snapshotUrls: [
-            'https://i.gkd.li/i/32193798', // 我的
-            'https://i.gkd.li/i/32194586', // 搜索页
+            'https://i.gkd.li/i/32193798', // 下载游戏
+            'https://i.gkd.li/i/32194586', // 了解更多
+            'https://i.gkd.li/i/33744960', // 立即抢购
           ],
           exampleUrls: 'https://e.gkd.li/e293b105-db09-4940-a4c2-7a3074ff67e0',
         },
@@ -56,13 +57,21 @@ export default defineGkdApp({
     {
       key: 3,
       name: '全屏广告-插屏广告',
-      desc: '视频暂停时出现, 点击[跳过]',
+      desc: '视频暂停时出现, 点击[跳过/关闭]',
       rules: [
         {
           fastQuery: true,
-          activityIds: 'com.windmill.sdk.widget.InterstitialView',
-          matches: '[vid="tobid_interstitial_skip_ll"]',
-          snapshotUrls: 'https://i.gkd.li/i/32318689',
+          activityIds: [
+            'com.windmill.sdk.widget.InterstitialView',
+            'com.windmill.sdk.host.stub.StubActivityStandard_', //通配
+          ],
+          matches:
+            '@[clickable=true] > [text*="跳过" || text="关闭"][text.length<8]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/32318689',
+            'https://i.gkd.li/i/33745185',
+            'https://i.gkd.li/i/33745188',
+          ],
           exampleUrls: 'https://e.gkd.li/67e9c8a2-f9ed-477b-ae46-39f493035a20',
         },
       ],
