@@ -67,5 +67,20 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 4,
+      name: '更新提示',
+      matchTime: 10000,
+      actionMaximum: 1,
+      resetMatch: 'app',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.MainActivity',
+          matches: '@ImageView[clickable=true][width<96] - [text*="新版本"]',
+          snapshotUrls: 'https://i.gkd.li/i/33833127',
+        },
+      ],
+    },
   ],
 });
