@@ -50,7 +50,7 @@ export default defineGkdApp({
           key: 2,
           activityIds: 'com.tencent.upgrade.ui.UpgradeDialogActivity',
           matches: '[vid="upgrade_dialog_close_btn"]',
-          snapshotUrls: 'https://i.gkd.li/i/13116821',
+          snapshotUrls: 'https://i.gkd.li/i/33833374',
         },
       ],
     },
