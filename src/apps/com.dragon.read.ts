@@ -297,6 +297,10 @@ export default defineGkdApp({
       name: '权限提示-通知权限',
       desc: '点击"取消"',
       fastQuery: true,
+      activityIds: [
+        '.widget.ConfirmDialogBuilder',
+        '.pages.main.MainFragmentActivity',
+      ],
       rules: [
         {
           key: 0,
@@ -304,10 +308,6 @@ export default defineGkdApp({
           matchTime: 10000,
           actionMaximum: 1,
           resetMatch: 'app',
-          activityIds: [
-            '.widget.ConfirmDialogBuilder',
-            '.pages.main.MainFragmentActivity',
-          ],
           matches: [
             '[text="开启推送提醒"][visibleToUser=true]',
             '[text="取消"][visibleToUser=true]',
@@ -326,6 +326,12 @@ export default defineGkdApp({
             '[text="取消"][visibleToUser=true]',
           ],
           snapshotUrls: 'https://i.gkd.li/i/27190449',
+        },
+        {
+          key: 2,
+          matches:
+            'TextView[text="暂不开启"] < @[clickable=true] <n View < View < ComposeView < * < * < [id="android:id/content"]',
+          snapshotUrls: 'https://i.gkd.li/i/33832486',
         },
       ],
     },
