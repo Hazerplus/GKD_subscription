@@ -84,6 +84,25 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 4,
+      name: '功能类-自动[关闭]弹幕',
+      desc: '仅在视频详情页生效',
+      rules: [
+        {
+          fastQuery: true,
+          actionCd: 3000, //防节点缓存未刷新导致重复触发
+          actionDelay: 300, //防点击太快无效
+          activityIds:
+            'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
+          matches:
+            '@[desc="关闭弹幕"] <2 View < View < [vid="danmaku_input_parent"]',
+          snapshotUrls: 'https://i.gkd.li/i/33745857',
+          excludeSnapshotUrls: 'https://i.gkd.li/i/33745620', //弹幕已关闭
+          exampleUrls: 'https://e.gkd.li/abf8fe28-1d92-4603-9463-291f8ef66b92',
+        },
+      ],
+    },
+    {
       key: 6,
       name: '更新提示',
       fastQuery: true,

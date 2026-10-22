@@ -69,8 +69,14 @@ export default defineGkdApp({
         {
           preKeys: [0],
           key: 1,
-          matches: '[text*="屏蔽"]',
-          snapshotUrls: 'https://i.gkd.li/i/14734962',
+          anyMatches: [
+            '[text*="屏蔽"][clickable=true]',
+            '@[clickable=true] > [text*="屏蔽"]',
+          ],
+          snapshotUrls: [
+            'https://i.gkd.li/i/14734962',
+            'https://i.gkd.li/i/33722870',
+          ],
         },
         {
           preKeys: [1],
