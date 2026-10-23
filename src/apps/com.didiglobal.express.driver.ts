@@ -31,5 +31,20 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 3,
+      name: '其他-开启自动接单?',
+      desc: '点击[忽略]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.v2.main.EDMainActivity',
+          matches:
+            '[text*="开启"][text*="自动接单"] +n @[clickable=true] > [text="忽略"]',
+          snapshotUrls: 'https://i.gkd.li/i/33851087',
+          exampleUrls: 'https://e.gkd.li/f3a0d6e2-8b2e-4b68-847d-6f6a6692ae08',
+        },
+      ],
+    },
   ],
 });
