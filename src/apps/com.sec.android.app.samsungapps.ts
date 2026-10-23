@@ -30,11 +30,16 @@ export default defineGkdApp({
       rules: [
         {
           fastQuery: true,
-          activityIds: ['.SearchResultActivity', '.SamsungAppsMainActivity'],
+          activityIds: [
+            '.SearchResultActivity',
+            '.SamsungAppsMainActivity',
+            '.updatelist.UpdateListActivity',
+          ],
           matches: '[text*="年满 18 岁"] +4 [vid="positive"]',
           snapshotUrls: [
             'https://i.gkd.li/i/14473690',
             'https://i.gkd.li/i/33385203',
+            'https://i.gkd.li/i/33868896',
           ],
           exampleUrls: 'https://e.gkd.li/1417cf6c-e06d-4565-ab2e-eae6a713f1f1',
         },
