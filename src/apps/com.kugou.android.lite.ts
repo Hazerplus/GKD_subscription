@@ -8,7 +8,7 @@ export default defineGkdApp({
       key: 0,
       name: '开屏广告',
       matchTime: 10000,
-      actionMaximum: 2, // issues#248
+      actionMaximum: 2, // https://github.com/Lin-arm/GKD_subscription/issues/248
       resetMatch: 'app',
       actionMaximumKey: 0,
       priorityTime: 10000,
@@ -16,7 +16,7 @@ export default defineGkdApp({
         {
           key: 0,
           fastQuery: true,
-          // action: 'clickCenter',
+          action: 'clickCenter', // https://github.com/Lin-arm/GKD_subscription/issues/417
           matches:
             '[text*="跳过"][text.length<10][width<500 && height<300][visibleToUser=true]',
           exampleUrls: 'https://e.gkd.li/94c7fc27-891f-4206-b933-f26661041b99',

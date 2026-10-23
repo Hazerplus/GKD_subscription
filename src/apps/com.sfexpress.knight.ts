@@ -26,6 +26,7 @@ export default defineGkdApp({
         {
           fastQuery: true,
           actionCd: 5000,
+          action: 'clickCenter',
           activityIds: '.home.HomeActivity',
           matches: '@[vid="llRefresh"][clickable=true] >2 [text="刷新列表"]',
           snapshotUrls: 'https://i.gkd.li/i/33797305',
