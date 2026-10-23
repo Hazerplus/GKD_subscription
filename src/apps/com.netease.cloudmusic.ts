@@ -270,5 +270,22 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 17,
+      name: '其他-分享时[取消勾选]得现金',
+      desc: '仅点击1次',
+      rules: [
+        {
+          fastQuery: true,
+          actionMaximum: 1,
+          resetMatch: 'match',
+          activityIds:
+            '.music.biz.rn.activity.MainProcessLayerReactNativeActivity',
+          matches: '@[clickable=true] > ImageView + [text*="勾选后分享到"]',
+          snapshotUrls: 'https://i.gkd.li/i/33880660',
+          exampleUrls: 'https://e.gkd.li/61178688-ca5c-4d21-96a2-8d8382665433',
+        },
+      ],
+    },
   ],
 });
