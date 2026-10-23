@@ -215,8 +215,24 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 8,
+      name: '功能类-自动[勾选]同意协议',
+      desc: '✅已阅读并同意服务协议和隐私政策',
+      rules: [
+        {
+          fastQuery: true,
+          actionMaximum: 1,
+          activityIds: '.activity.LoginPublicFragmentActivity',
+          matches:
+            '@CheckBox[checked=false] + [text="已阅读并同意服务协议和隐私政策"]',
+          snapshotUrls: 'https://i.gkd.li/i/33854572',
+          exampleUrls: 'https://e.gkd.li/e38854d8-4cd5-41c0-9396-b2c95ef9a788',
+        },
+      ],
+    },
+    {
       key: 10,
-      name: '功能类-自动勾选原图',
+      name: '功能类-自动[勾选]原图',
       desc: '发送图片时自动勾选原图，可手动取消勾选',
       actionMaximum: 1,
       rules: [
