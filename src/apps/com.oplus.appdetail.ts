@@ -72,5 +72,25 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 3,
+      name: '功能类-自动[勾选]已知悉风险',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: [
+            '.model.guide.ui.InstallGuideActivity',
+            '.modelv2.parsing.PackageParsingV2Activity',
+          ],
+          matches:
+            '[text^="已知悉"][text*="风险"][checkable=true][checked=false]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/22377327',
+            'https://i.gkd.li/i/33898132',
+          ],
+          exampleUrls: 'https://e.gkd.li/509a2a45-c9bd-4b7e-9496-ced36ebdaaf6',
+        },
+      ],
+    },
   ],
 });
