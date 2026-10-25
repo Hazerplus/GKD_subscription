@@ -48,13 +48,24 @@ export default defineGkdApp({
     {
       key: 3,
       name: '权限提示-定位权限',
-      desc: '底部横幅, 点击x掉',
+      desc: '底部横幅/全屏, 点击x掉',
+      fastQuery: true,
+      activityIds: '.MainActivity',
       rules: [
         {
-          fastQuery: true,
-          activityIds: '.MainActivity',
+          key: 0,
+          name: '横幅',
           matches: '[vid="location_layout"] > [vid="iv_close"][clickable=true]',
           snapshotUrls: 'https://i.gkd.li/i/31689754',
+          exampleUrls: 'https://e.gkd.li/6dd4b544-85b4-455d-9f27-0b83a95305de',
+        },
+        {
+          key: 1,
+          name: '全屏弹窗',
+          matches:
+            '[vid="tvTitle"] + [vid="tvMessage"][text^="APP需要您的同意"][text*="访问您的位置"] + [childCount=2] > [vid="tvNegative"][clickable=true]',
+          snapshotUrls: 'https://i.gkd.li/i/33924001',
+          exampleUrls: 'https://e.gkd.li/a068a642-d226-43f5-8eb7-43e6351e0d24',
         },
       ],
     },

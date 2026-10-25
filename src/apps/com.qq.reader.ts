@@ -31,6 +31,12 @@ export default defineGkdApp({
         {
           key: 2,
           matches:
+            '@View[clickable=true][width<170 && height<170] - FrameLayout[height=getPrev(1).height] <2 [childCount=3] < [vid="splash_container"]',
+          snapshotUrls: 'https://i.gkd.li/i/33926416',
+        },
+        {
+          key: 3,
+          matches:
             '@ImageView[width<140 && height<140][visibleToUser=true][vid=null][text=null] < * < ViewGroup +n ViewGroup[index=parent.childCount.minus(1)] >2 [text="广告"]',
           snapshotUrls: [
             'https://i.gkd.li/i/32437199',
