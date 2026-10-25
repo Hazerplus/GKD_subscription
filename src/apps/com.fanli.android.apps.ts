@@ -23,5 +23,20 @@ export default defineGkdApp({
         },
       ],
     },
+
+    {
+      key: 2,
+      name: '权限提示-通知',
+      fastQuery: true,
+      activityIds: 'com.fanli.android.module.main.activity.PanoMainActivity',
+      rules: [
+        {
+          matches:
+            'ImageView[vid=null][width<68 && height<68] < @FrameLayout[childCount=1] < * - RelativeLayout > [text="开启提醒"][visibleToUser=true]',
+          snapshotUrls: 'https://i.gkd.li/i/33924577',
+          exampleUrls: 'https://e.gkd.li/061779d2-fb8c-43a1-80ac-11e36deaab83',
+        },
+      ],
+    },
   ],
 });
