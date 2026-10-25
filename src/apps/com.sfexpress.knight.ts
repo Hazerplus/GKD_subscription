@@ -15,7 +15,8 @@ export default defineGkdApp({
             '.home.HomeActivity',
             '.redesign.detail.activity.ReOrderDetailActivity',
           ],
-          matches: '@[vid="locationFl"] + [vid="recordFl"] >2 [text="导航-取" || text="导航-送"]',
+          matches:
+            '@[vid="locationFl"] + [vid="recordFl"] >2 [text="导航-取" || text="导航-送"]',
           snapshotUrls: [
             'https://i.gkd.li/i/33796598',
             'https://i.gkd.li/i/33917309',
