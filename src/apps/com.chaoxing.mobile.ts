@@ -65,6 +65,23 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 9,
+      name: '通知提示-剪贴板内容已更新',
+      desc: '点击[知道了]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.notify.ui.NoticeBodyActivity',
+          matches: [
+            '[text*="剪贴板内容已更新"][visibleToUser=true]',
+            '[text="知道了"][clickable=true]',
+          ],
+          snapshotUrls: 'https://i.gkd.li/i/33947533',
+          exampleUrls: 'https://e.gkd.li/c5a068c5-33ee-4911-a1a8-238b73097f53',
+        },
+      ],
+    },
+    {
       key: 10,
       name: '权限提示-通知权限',
       desc: '点击关闭',
