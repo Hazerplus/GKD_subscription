@@ -108,5 +108,22 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 13,
+      name: '功能类-签到成功后自动[返回]',
+      desc: '按[返回键]',
+      rules: [
+        {
+          fastQuery: true,
+          action: 'back',
+          actionDelay: 300,
+          activityIds: '.webapp.ui.WebAppViewerActivity',
+          matches:
+            '@[text="签到成功"] <2 WebView < WebView <2 [vid="web_view_fragment_refresh_layout"]',
+          snapshotUrls: 'https://i.gkd.li/i/33947532',
+          exampleUrls: 'https://e.gkd.li/3705832f-59e5-44f2-b39a-cf4878be6f4f',
+        },
+      ],
+    },
   ],
 });
