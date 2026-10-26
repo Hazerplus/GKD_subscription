@@ -115,8 +115,11 @@ export default defineGkdApp({
           name: '百度广告-1',
           activityIds: 'com.baidu.mobads.sdk.api.MobRewardVideoActivity',
           matches:
-            '@ImageView[clickable=true] - RelativeLayout >2 [text="反馈"]',
-          snapshotUrls: 'https://i.gkd.li/i/25189723',
+            '@ImageView[clickable=true][width<134 && height<134] <n RelativeLayout >(1,3) [text="反馈"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/25189723',
+            'https://i.gkd.li/i/33947096',
+          ],
         },
         {
           key: 11,
