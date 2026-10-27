@@ -7,14 +7,12 @@ export default defineGkdApp({
     {
       key: 1,
       name: '全屏广告-弹窗广告',
-      matchTime: 10000,
-      actionMaximum: 1,
-      resetMatch: 'app',
+      actionCd: 300,
+      activityIds: '.MainActivity',
       rules: [
         {
           key: 0,
           fastQuery: true,
-          activityIds: '.MainActivity',
           matches: '[vid="box_custom"] >2 [vid="ivClose"][clickable=true]',
           snapshotUrls: [
             'https://i.gkd.li/i/31689742',
@@ -23,7 +21,6 @@ export default defineGkdApp({
         },
         {
           key: 1,
-          activityIds: '.MainActivity',
           matches:
             'View[childCount=3] > View + ImageView + ImageView[clickable=true][childCount=0]',
           snapshotUrls: 'https://i.gkd.li/i/13694864',
