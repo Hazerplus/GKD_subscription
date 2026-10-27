@@ -92,6 +92,13 @@ export default defineGkdApp({
           ],
           excludeSnapshotUrls: 'https://i.gkd.li/i/29032927', // [index!=0]
         },
+        {
+          key: 4,
+          activityIds: '.activity.QPublicFragmentActivity',
+          matches:
+            'ImageView[width<62] < [visibleToUser=true][desc="关闭广告"]',
+          snapshotUrls: 'https://i.gkd.li/i/33948809',
+        },
       ],
     },
     {

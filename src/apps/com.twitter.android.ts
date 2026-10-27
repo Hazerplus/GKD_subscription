@@ -386,5 +386,31 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 15,
+      name: '分段广告-帖子含视频广告',
+      desc: '①点击[跳过] ②点击[屏蔽]该用户',
+      fastQuery: true,
+      activityIds: 'com.x.android.main.MainActivity',
+      rules: [
+        {
+          key: 1,
+          name: '①点击[跳过]',
+          matches:
+            '[text="跳过"] < @[clickable=true] -n [text*="广告"] <n [visibleToUser=true] <2 [childCount=2] >4 [vid="exo_subtitles"]',
+          snapshotUrls: 'https://i.gkd.li/i/33950650',
+          exampleUrls: 'https://e.gkd.li/a9dbde18-fc31-4b28-b277-8ad19d0d3fcf',
+        },
+        {
+          key: 2,
+          preKeys: [1],
+          name: '②点击[屏蔽]该用户',
+          matches:
+            '@[text*="屏蔽"] < [clickable=true] <n ScrollView >2 [visibleToUser=true][text*="广告"]',
+          snapshotUrls: 'https://i.gkd.li/i/33951005',
+          exampleUrls: 'https://e.gkd.li/5a072c9d-f214-49c0-9446-cc5b185c3664',
+        },
+      ],
+    },
   ],
 });

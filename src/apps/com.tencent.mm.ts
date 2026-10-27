@@ -293,6 +293,21 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 6,
+      name: '功能类-自动[关闭]已抢完的红包',
+      desc: '点击x掉',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.plugin.luckymoney.ui.LuckyMoneyNewReceiveUI',
+          matches:
+            '@[desc="关闭"] - [visibleToUser=true] >3 [text^="手慢了"][text*="红包"][text.length<15]',
+          snapshotUrls: 'https://i.gkd.li/i/33950144',
+          exampleUrls: 'https://e.gkd.li/4786186b-49ab-44e5-b3b1-c3b78db4802b',
+        },
+      ],
+    },
+    {
       key: 7,
       name: '功能类-自动[选中]发送原图',
       desc: '自动选中底部中间的发送原图，可手动取消勾选',

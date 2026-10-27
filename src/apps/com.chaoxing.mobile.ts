@@ -65,6 +65,23 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 9,
+      name: '通知提示-剪贴板内容已更新',
+      desc: '点击[知道了]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.notify.ui.NoticeBodyActivity',
+          matches: [
+            '[text*="剪贴板内容已更新"][visibleToUser=true]',
+            '[text="知道了"][clickable=true]',
+          ],
+          snapshotUrls: 'https://i.gkd.li/i/33947533',
+          exampleUrls: 'https://e.gkd.li/c5a068c5-33ee-4911-a1a8-238b73097f53',
+        },
+      ],
+    },
+    {
       key: 10,
       name: '权限提示-通知权限',
       desc: '点击关闭',
@@ -105,6 +122,23 @@ export default defineGkdApp({
             '[childCount=0] < [childCount=1] < @View[clickable=true][childCount=1] < WebView[text="签到"][childCount=1] < WebView[childCount=1] <2 [vid="web_view_fragment_refresh_layout"]',
           snapshotUrls: 'https://i.gkd.li/i/26644134',
           exampleUrls: 'https://e.gkd.li/efd48fc1-7575-43ea-a371-585fae266947',
+        },
+      ],
+    },
+    {
+      key: 13,
+      name: '功能类-签到成功后自动[返回]',
+      desc: '按[返回键]',
+      rules: [
+        {
+          fastQuery: true,
+          action: 'back',
+          actionDelay: 300,
+          activityIds: '.webapp.ui.WebAppViewerActivity',
+          matches:
+            '@[text="签到成功"] <2 WebView < WebView <2 [vid="web_view_fragment_refresh_layout"]',
+          snapshotUrls: 'https://i.gkd.li/i/33947532',
+          exampleUrls: 'https://e.gkd.li/3705832f-59e5-44f2-b39a-cf4878be6f4f',
         },
       ],
     },

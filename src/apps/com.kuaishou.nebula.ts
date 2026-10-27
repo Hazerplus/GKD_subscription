@@ -160,7 +160,7 @@ export default defineGkdApp({
           activityIds: 'com.yxcorp.gifshow.HomeActivity',
           anyMatches: [
             '[vid="ad_detail_content_layout"][visibleToUser=true]', //1️⃣
-            '[vid="plc_tv_tag_label"][text$="元"][visibleToUser=true]', //2️⃣
+            '[vid="plc_tv_tag_label"][text$="元" || text$="人买过"][visibleToUser=true]', //2️⃣
             '[vid="plc_tv_biz_text"][text="游戏" || text="小游戏" || text="购物" || text="购买" || text="汽车" || text="咨询" || text="应用" || text="品牌活动" || text="一键出片" || text="测一测"][visibleToUser=true]', //3️⃣
           ],
           snapshotUrls: [
@@ -169,6 +169,7 @@ export default defineGkdApp({
 
             //选择器2️⃣
             'https://i.gkd.li/i/33927176', // 已省10元
+            'https://i.gkd.li/i/33969241', // 600+人买过
 
             //选择器3️⃣
             'https://i.gkd.li/i/29029850', //购物
