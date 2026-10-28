@@ -95,8 +95,11 @@ export default defineGkdApp({
           activityIds:
             'com.bilibili.ship.theseus.detail.UnitedBizDetailsActivity',
           matches:
-            '@[desc="关闭弹幕"] <2 View < View < [vid="danmaku_input_parent"]',
-          snapshotUrls: 'https://i.gkd.li/i/33745857',
+            '@[desc="关闭弹幕" || desc="Disable danmu"] <2 View < View < [vid="danmaku_input_parent"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33745857', // 关闭弹幕
+            'https://i.gkd.li/i/34027203', // Disable danmu
+          ],
           excludeSnapshotUrls: 'https://i.gkd.li/i/33745620', //弹幕已关闭
           exampleUrls: 'https://e.gkd.li/abf8fe28-1d92-4603-9463-291f8ef66b92',
         },
