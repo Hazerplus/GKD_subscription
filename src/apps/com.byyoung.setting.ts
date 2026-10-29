@@ -7,11 +7,18 @@ export default defineGkdApp({
     {
       key: 1,
       name: '功能类-忽略授权提示',
-      activityIds: '.Welcome.PermissionActivity',
+      desc: '初始授权欢迎界面,点击上方暂时忽略授权',
+      matchTime: 10000,
+      actionMaximum: 1,
+      resetMatch: 'app',
       rules: [
         {
-          matches: '[vid="tv_name"][text*="忽略授权"]',
-          snapshotUrls: 'https://i.gkd.li/i/12829909',
+          fastQuery: true,
+          actionDelay: 200,
+          activityIds: '.Welcome.PermissionActivity',
+          matches: '@[clickable=true] >2 [text*="忽略授权"]',
+          snapshotUrls: 'https://i.gkd.li/i/34113480',
+          exampleUrls: 'https://e.gkd.li/3685c49e-516e-4e15-b33a-419459cc311a',
         },
       ],
     },
