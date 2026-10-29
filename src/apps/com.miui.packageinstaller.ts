@@ -203,15 +203,16 @@ export default defineGkdApp({
     },
     {
       key: 19,
-      name: '其他-弹窗频繁安装应用',
-      desc: '点击[取消]',
+      name: '功能类-频繁安装应用自动点[验证]',
+      desc: '弹窗,点击[验证]',
       rules: [
         {
           fastQuery: true,
+          actionDelay: 200,
           // activityIds: null,
-          matches: ['[text*="频繁安装应用"]', '[text="取消"][clickable=true]'],
-          exampleUrls: 'https://e.gkd.li/abecebb8-cfb1-4cd0-b035-eceda488e40e',
+          matches: ['[text*="频繁安装应用"]', '[text="验证"][clickable=true]'],
           snapshotUrls: 'https://i.gkd.li/i/34111857',
+          exampleUrls: 'https://e.gkd.li/abecebb8-cfb1-4cd0-b035-eceda488e40e',
         },
       ],
     },
