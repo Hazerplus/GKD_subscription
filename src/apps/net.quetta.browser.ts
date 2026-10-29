@@ -31,5 +31,19 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 3,
+      name: '功能类-自动点击[仍然下载]',
+      desc: '例如提示 文件可能有害 啥的, 点击[仍然下载]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches: '[text="仍然下载"][clickable=true]',
+          snapshotUrls: 'https://i.gkd.li/i/34111999',
+          exampleUrls: 'https://e.gkd.li/1390ac8c-50aa-4f0c-a4fd-b451fea175ac',
+        },
+      ],
+    },
   ],
 });
