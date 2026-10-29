@@ -45,5 +45,20 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 4,
+      name: '功能类-防止误关所有标签页',
+      desc: '弹窗,要关闭所有标签页吗? 点击[取消]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches:
+            '[text="要关闭所有标签页吗？"] +2 [visibleToUser=true] > [text="取消"][clickable=true]',
+          snapshotUrls: 'https://i.gkd.li/i/34112024',
+          exampleUrls: 'https://e.gkd.li/2087b9bc-f161-43b1-a931-0c7f28029dd4',
+        },
+      ],
+    },
   ],
 });
