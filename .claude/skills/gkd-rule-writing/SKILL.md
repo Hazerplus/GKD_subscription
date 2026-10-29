@@ -82,7 +82,23 @@ text/desc 用 Python 的 `repr()` 输出，所以不可见字符会显示成转�
    - 规则组开了 `fastQuery: true` 时，输出里不能出现 `⚠ 快速查询只命中`，否则真机上会匹配不到。
 
 5. **写规则**
-   - 修改现有规则组时，**在后面追加新的 key**，不要主动删掉或修改旧规则，它们可能还在适配旧版本应用。
+   - 编写规则时，优先考虑能否通过修改现有规则适配新快照。仅靠修改无法适配或者太复杂再新增 key。
+   - **例外：同类的单表达式规则要合并**。如果新规则只有一个属性选择器（比如 `[vid="xxx"]`），而组里已经有分类相同、点击方式相同、同样只有一个表达式的规则，就不要新增 key，而是合并进那条规则：`matches` 用 `||` 追加新条件，`activityIds` 改成数组并追加新的 Activity，`snapshotUrls` 追加新链接。这样只是多了一个匹配分支，旧版本照样能匹配，`vid`/`text` 用 `||` 连起来也不影响快速查询。带关系运算符的复杂选择器不要合并，还是新增 key。示例：
+
+     ```ts
+     {
+       key: 9,
+       fastQuery: true,
+       activityIds: [
+         'com.anythink.basead.ui.ATPortraitTranslucentActivity',
+         'com.beizi.ad.v2.activity.BeiZiNewInterstitialActivity',
+         'cj.mobile.fw.activity.PtgInteractionPortraitActivity', // 新增
+       ],
+       matches:
+         '[vid="anythink_myoffer_btn_close_id" || vid="beizi_interstitial_ad_close_iv" || vid="closeAdvertLayout"]', // 新增 closeAdvertLayout
+       snapshotUrls: [/* 原有链接 */, 'https://i.gkd.li/i/新链接'],
+     },
+     ```
    - 多步操作用 `preKeys` 串联，每一步都写 `name`（例如 `'①更多操作'`）。
    - 如果某一步在另一个 Activity，就在这条 rule 上单独写 `activityIds`，可以用 `.activity.Xxx` 这种相对写法。
    - 同步更新规则组的 `desc`，描述新的操作步骤。
