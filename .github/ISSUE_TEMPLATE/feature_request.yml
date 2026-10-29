@@ -20,7 +20,7 @@ body:
           required: true
         - label: 我已**开启全局规则**并确认**此 App 无法触发全局规则**
           required: true
-        - label: 我已确认使用的是 **最新版订阅** [![GitHub Release](https://img.shields.io/github/v/release/Lin-arm/GKD_subscription)](https://github.com/Lin-arm/GKD_subscription/releases/latest) 和 **最新版GKD** [![GitHub Release](https://img.shields.io/github/v/release/gkd-kit/gkd)](https://github.com/gkd-kit/gkd/releases/latest)
+        - label: 我已确认使用的是 **最新版订阅** [![GitHub Release](https://img.shields.io/github/v/release/Lin-arm/GKD_subscription?label=)](https://github.com/Lin-arm/GKD_subscription/releases/latest) 和 **最新版GKD** [![GitHub Release](https://img.shields.io/github/v/release/gkd-kit/gkd?label=&color=deepskyblue)](https://github.com/gkd-kit/gkd/releases/latest)
           required: true
 
   - type: checkboxes
@@ -43,5 +43,15 @@ body:
 
         按照下面的截图示例来获取界面快照，上传文件或者生成链接并粘贴到下面的输入框，如果是需要多个点击如 [点击关闭按钮->出现关闭弹窗->点击关闭原因] 这种类型，则需要填写每个点击界面的快照\
         ![img](https://raw.githubusercontent.com/Lin-arm/GKD_subscription/refs/heads/main/docs/images/Snapshot.webp)
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-demand
+    attributes:
+      label: |
+        ✍ 请准确地描述你的需求
+      description: |
+        例如，想要用 GKD 自动帮你做什么操作....
     validations:
       required: true

@@ -20,7 +20,7 @@ body:
           required: true
         - label: 如果是多次点击才能生效的情况，我已提供**每一次点击的快照**
           required: true
-        - label: 我已确认使用的是 **最新版订阅** [![GitHub Release](https://img.shields.io/github/v/release/Lin-arm/GKD_subscription)](https://github.com/Lin-arm/GKD_subscription/releases/latest) 和 **最新版GKD** [![GitHub Release](https://img.shields.io/github/v/release/gkd-kit/gkd)](https://github.com/gkd-kit/gkd/releases/latest)
+        - label: 我已确认使用的是 **最新版订阅** [![GitHub Release](https://img.shields.io/github/v/release/Lin-arm/GKD_subscription?label=)](https://github.com/Lin-arm/GKD_subscription/releases/latest) 和 **最新版GKD** [![GitHub Release](https://img.shields.io/github/v/release/gkd-kit/gkd?label=&color=deepskyblue)](https://github.com/gkd-kit/gkd/releases/latest)
           required: true
 
   - type: checkboxes
@@ -36,7 +36,7 @@ body:
     id: snapshot
     attributes:
       label: |
-        📸请提供 误触界面/出现问题界面 的快照（不要提供截图！！！不要使用截屏快照！！！），也可补充说明
+        📸 请提供 误触界面/出现问题界面 的快照（不要提供截图！！！不要使用截屏快照！！！），也可补充说明
       description: |
         快照是一个 zip 文件，快照链接是类似 "https://i.gkd.li/i/XXXXXXXX" 的文本，按照如下方式可获得快照信息
 
@@ -49,6 +49,6 @@ body:
     id: rule
     attributes:
       label: |
-        请说明是哪一条规则 误触/出现问题（文字/触发记录界面截图）
+        ✍ 请说明是哪一条规则 误触/出现问题（文字/触发记录界面截图）
     validations:
       required: true
