@@ -60,5 +60,19 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 5,
+      name: '功能类-自动点击[下载]',
+      desc: '弹窗, 点击[下载]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches: '[vid="downloadLocationButton"]',
+          snapshotUrls: 'https://i.gkd.li/i/34135770',
+          exampleUrls: 'https://e.gkd.li/c6a867d4-c234-4412-be73-7900aadbdca4',
+        },
+      ],
+    },
   ],
 });
