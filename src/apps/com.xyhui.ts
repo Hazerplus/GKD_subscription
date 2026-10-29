@@ -53,8 +53,12 @@ export default defineGkdApp({
           name: '美数广告',
           fastQuery: true,
           activityIds: 'com.meishu.sdk.activity.SdkInterstitialActivity',
-          matches: '[vid="ms_activity_sdk_interstitial_cacel"]',
-          snapshotUrls: 'https://i.gkd.li/i/13458692',
+          matches:
+            '[vid="ms_activity_sdk_interstitial_cacel" || vid="ms_interstitial_v2_close"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/13458692',
+            'https://i.gkd.li/i/34106754',
+          ],
         },
         {
           key: 5,
@@ -106,14 +110,16 @@ export default defineGkdApp({
             'com.smartdigimkt.sdk.basead.ui.ATPortraitTranslucentActivity',
             'com.beizi.ad.v2.activity.BeiZiNewInterstitialActivity',
             'com.anythink.core.common.inner.ui.ATPortraitTranslucentActivity',
+            'cj.mobile.fw.activity.PtgInteractionPortraitActivity',
           ],
           matches:
-            '[vid="anythink_myoffer_btn_close_id" || vid="sdm_myoffer_btn_close_id" || vid="beizi_interstitial_ad_close_iv"]',
+            '[vid="anythink_myoffer_btn_close_id" || vid="sdm_myoffer_btn_close_id" || vid="beizi_interstitial_ad_close_iv" || vid="closeAdvertLayout"]',
           snapshotUrls: [
             'https://i.gkd.li/i/22868736',
             'https://i.gkd.li/i/23293759',
             'https://i.gkd.li/i/23577343',
             'https://i.gkd.li/i/30700901',
+            'https://i.gkd.li/i/34106741',
           ],
         },
         {
@@ -168,6 +174,22 @@ export default defineGkdApp({
           matches:
             '@ImageView[childCount=0][text=null][visibleToUser=true] < FrameLayout[childCount=1] <3 FrameLayout[childCount=3] < FrameLayout[childCount=2] +5 FrameLayout[childCount=4] > [text^="扭动或点击"]',
           snapshotUrls: 'https://i.gkd.li/i/27525121',
+        },
+        {
+          key: 16,
+          fastQuery: true,
+          activityIds: 'com.octopus.ad.AdActivity',
+          matches:
+            '@ImageView[childCount=0][clickable=true][width<110 && height<110] - [text="反馈"]',
+          snapshotUrls: 'https://i.gkd.li/i/34106756',
+        },
+        {
+          key: 17,
+          fastQuery: true,
+          activityIds: '.lut.act.LutMainActivity',
+          matches:
+            '@[id="cj.mobile.wm.allmodules:id/wm_pop_pic_close"][visibleToUser=true] +n LinearLayout > [text="广告"]',
+          snapshotUrls: 'https://i.gkd.li/i/34106749',
         },
       ],
     },
