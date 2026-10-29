@@ -21,5 +21,19 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 2,
+      name: '全屏广告-弹窗广告',
+      desc: 'x掉',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.activity.SplashActivity',
+          matches: '[vid="content_image"] + [vid="close_btn"]',
+          snapshotUrls: 'https://i.gkd.li/i/34140126',
+          exampleUrls: 'https://e.gkd.li/ce650c5f-4629-40d7-b846-0d201900392a',
+        },
+      ],
+    },
   ],
 });
