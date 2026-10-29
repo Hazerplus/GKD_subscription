@@ -303,27 +303,29 @@ export default defineGkdApp({
     {
       key: 20,
       name: '青少年模式',
-      fastQuery: true,
-      actionMaximum: 1,
-      resetMatch: 'app',
+      desc: '点击[关闭/不再提醒/我知道了]',
       rules: [
         {
-          key: 0,
+          fastQuery: true,
+          actionMaximum: 1,
+          resetMatch: 'app',
           excludeActivityIds: '.setting.ui.SettingCommonProtocolActivity',
           matches: [
             '[text*="青少年" || text*="未成年"][text*="模式"]',
-            '[text="关闭" || text="不再提醒"]',
+            '[text="关闭" || text="不再提醒" || text="我知道了"]',
           ],
           snapshotUrls: [
             'https://i.gkd.li/i/14321107',
             'https://i.gkd.li/i/14473006',
             'https://i.gkd.li/i/17726070',
             'https://i.gkd.li/i/18638030',
+            'https://i.gkd.li/i/34110566',
           ],
           excludeSnapshotUrls: [
             'https://i.gkd.li/i/14917848',
             'https://i.gkd.li/i/17610958',
           ],
+          exampleUrls: 'https://e.gkd.li/a105f102-a653-46bb-b710-a36aa8a2e679',
         },
       ],
     },
