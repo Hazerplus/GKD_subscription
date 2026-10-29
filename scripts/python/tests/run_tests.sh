@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 # 条件运行 Python 单元测试
 #
 # 仅当 scripts/python/ 或 .github/workflows/ 下有文件变更时才运行测试。
 # 修改 src/apps/*.ts 等 TypeScript 文件时自动跳过。
 #
 # 使用方法：
-#   bash scripts/python/tests/run_tests.sh
+#   sh scripts/python/tests/run_tests.sh
 
 # 对比 origin/main，获取本次 push 涉及的变更文件
 changed_files=$(git diff --name-only origin/main..HEAD 2>/dev/null)
