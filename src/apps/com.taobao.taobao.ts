@@ -36,6 +36,7 @@ export default defineGkdApp({
             'com.taobao.android.tbabilitykit.pop.StdPopContainerActivity',
             'com.taobao.android.detail.wrapper.activity.DetailActivity',
             'com.alibaba.android.ultron.vfw.weex2.highPerformance.widget.UltronTradeHybridActivity',
+            'com.taobao.message.activity.ChatActivity',
           ],
           matches: '@[desc="关闭按钮"] - [vid="poplayer_native_state_id"]',
           snapshotUrls: [
@@ -44,6 +45,7 @@ export default defineGkdApp({
             'https://i.gkd.li/i/14060521',
             'https://i.gkd.li/i/14905372',
             'https://i.gkd.li/i/30856922',
+            'https://i.gkd.li/i/34168285',
           ],
         },
         {
