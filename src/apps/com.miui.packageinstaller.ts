@@ -2,7 +2,7 @@ import { defineGkdApp } from '@gkd-kit/define';
 
 export default defineGkdApp({
   id: 'com.miui.packageinstaller',
-  name: '应用包管理组件',
+  name: '(小米)应用包管理组件',
   groups: [
     {
       key: 7,
@@ -198,6 +198,21 @@ export default defineGkdApp({
           matches:
             '[text="已了解此应用存在风险"][checked=false][visibleToUser=true]',
           snapshotUrls: 'https://i.gkd.li/i/25095995',
+        },
+      ],
+    },
+    {
+      key: 19,
+      name: '功能类-频繁安装应用自动点[验证]',
+      desc: '弹窗,点击[验证]',
+      rules: [
+        {
+          fastQuery: true,
+          actionDelay: 200,
+          // activityIds: null,
+          matches: ['[text*="频繁安装应用"]', '[text="验证"][clickable=true]'],
+          snapshotUrls: 'https://i.gkd.li/i/34111857',
+          exampleUrls: 'https://e.gkd.li/abecebb8-cfb1-4cd0-b035-eceda488e40e',
         },
       ],
     },

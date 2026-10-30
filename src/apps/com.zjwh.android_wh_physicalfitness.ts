@@ -169,10 +169,11 @@ export default defineGkdApp({
           fastQuery: true,
           activityIds: 'com.baidu.mobads.sdk.api.MobRewardVideoActivity',
           matches:
-            '@ImageView[clickable=true][visibleToUser=true][width<110 && height<110] + RelativeLayout >3 [text="反馈"]',
+            '@ImageView[clickable=true][visibleToUser=true][width<110 && height<110] + RelativeLayout >(2,3) [text="反馈"]',
           snapshotUrls: [
             'https://i.gkd.li/i/33430048',
             'https://i.gkd.li/i/33430738',
+            'https://i.gkd.li/i/34107321',
           ],
         },
         {

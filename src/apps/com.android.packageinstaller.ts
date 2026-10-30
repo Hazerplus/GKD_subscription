@@ -25,13 +25,14 @@ export default defineGkdApp({
           name: '点击[继续安装]',
           anyMatches: [
             '[text="继续安装"][clickable=true][focusable=true]',
-            '@[clickable=true][focusable=true] >(1,2) [text="继续安装"]',
+            '@[clickable=true][focusable=true] >(1,2,4) [text="继续安装"]',
           ],
           snapshotUrls: [
             'https://i.gkd.li/i/13206444', //A
             'https://i.gkd.li/i/14046749', //A
             'https://i.gkd.li/i/16550275', //B
             'https://i.gkd.li/i/23621117', //C
+            'https://i.gkd.li/i/34127356', //C
           ],
           excludeSnapshotUrls: [
             'https://i.gkd.li/i/23621105', //C   [focusable=false]
@@ -44,9 +45,8 @@ export default defineGkdApp({
           excludeMatches: '[text^="应用未安装" || text*="安装失败"]',
           anyMatches: [
             '[text="完成"][clickable=true][focusable=true]',
-            '@[clickable=true][focusable=true] >(1,2) [text="完成"]',
+            '@[clickable=true][focusable=true] >(1,2,4) [text="完成"]',
           ],
-          // matches: '[vid="done_button" || text="完成"][clickable=true][focusable=true]',
           snapshotUrls: [
             'https://i.gkd.li/i/13206476', //D
             'https://i.gkd.li/i/13766420', //D
@@ -56,6 +56,7 @@ export default defineGkdApp({
             'https://i.gkd.li/i/16550273', //B
             'https://i.gkd.li/i/25816401', //D
             'https://i.gkd.li/i/33746542', //D
+            'https://i.gkd.li/i/34127373', //D
           ],
           excludeSnapshotUrls: 'https://i.gkd.li/i/26314449', // 安装失败停止点击
           exampleUrls: 'https://e.gkd.li/00166afa-f8cb-4389-87b0-948a5a75f3d5',
