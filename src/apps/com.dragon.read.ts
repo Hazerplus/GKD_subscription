@@ -62,8 +62,11 @@ export default defineGkdApp({
           key: 1,
           activityIds: '.pages.main.MainFragmentActivity',
           matches:
-            '@ImageView[desc="Close Button"] <2 View < View < View < View < ComposeView < [id="android:id/content"]',
-          snapshotUrls: 'https://i.gkd.li/i/28907537',
+            '@ImageView[desc="Close Button"][clickable=true][visibleToUser=true] <2 View < View < View < View < * < [id="android:id/content"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/28907537',
+            'https://i.gkd.li/i/34167774',
+          ],
         },
         {
           key: 2,
@@ -86,9 +89,14 @@ export default defineGkdApp({
           key: 0,
           name: '电商惊喜券',
           activityIds: '.pages.main.MainFragmentActivity',
-          matches:
+          anyMatches: [
             '@LynxFlattenUI[id=null][text=""][clickable=true] - [text="去逛商城"] -4 [text$="电商惊喜券"]',
-          snapshotUrls: 'https://i.gkd.li/i/12910159',
+            '@ImageView[desc="dialog_close_icon"][clickable=true][visibleToUser=true] <n View[getChild(1).text="惊喜电商券即将失效"] < ComposeView < FrameLayout < [id="android:id/content"]',
+          ],
+          snapshotUrls: [
+            'https://i.gkd.li/i/12910159',
+            'https://i.gkd.li/i/34167848',
+          ],
         },
         {
           key: 1,
@@ -129,7 +137,7 @@ export default defineGkdApp({
           key: 5,
           activityIds: '.reader.ui.ReaderActivity',
           matches: 'TextView[text="广告"] +2 Button[vid="close"]',
-          snapshotUrls: 'https://i.gkd.li/i/13191156',
+          snapshotUrls: 'https://i.gkd.li/i/13191156', //无vid旧快照
         },
         {
           key: 6,
@@ -153,6 +161,13 @@ export default defineGkdApp({
             'View[id=null][text=null][desc=null][childCount=0] < [id="com.dragon.read.awemevideo:id/fullvideo_videoview"][childCount=1][visibleToUser=true]',
           exampleUrls: 'https://e.gkd.li/c29c5647-e2ee-460f-87aa-8717779645ec',
           snapshotUrls: 'https://i.gkd.li/i/23621776',
+        },
+        {
+          key: 8,
+          activityIds: '.pages.main.MainFragmentActivity',
+          matches:
+            'TextureView < FrameLayout + FrameLayout > TextView[text="关闭"][clickable=true][visibleToUser=true]',
+          snapshotUrls: 'https://i.gkd.li/i/34167893',
         },
       ],
     },
@@ -247,24 +262,32 @@ export default defineGkdApp({
           actionDelay: 200,
           matches:
             '[text="反馈" || desc="反馈"][visibleToUser=true][name$="UIText" || name$="ViewGroup"]',
-          exampleUrls: [
-            'https://e.gkd.li/3837a70f-30e3-42d1-9354-696dcda598b7',
-          ],
           snapshotUrls: [
             'https://i.gkd.li/i/13520160',
             'https://i.gkd.li/i/13816453',
             'https://i.gkd.li/i/24128141',
           ],
+          exampleUrls: 'https://e.gkd.li/3837a70f-30e3-42d1-9354-696dcda598b7',
+        },
+        {
+          key: 5,
+          matches:
+            '@ImageView[visibleToUser=true][width<100][right>parent.right.minus(100)] <n [vid="root_view"] >2 [text="播放全集"][focusable=true]',
+          /**
+           * [right>parent.right.minus(100)]
+           * 目标节点的 right , 与父节点的 right 的距离在 100 以内
+           */
+          snapshotUrls: 'https://i.gkd.li/i/34167862',
         },
 
         // 第二段
         {
           key: 50,
-          preKeys: [0, 1, 2, 3, 4],
+          preKeys: [0, 1, 2, 3, 4, 5],
           name: '②点击[不感兴趣/关闭此广告]',
           anyMatches: [
-            '@[clickable=true] > [text="不感兴趣" || text^="关闭此"]',
-            '[text="不感兴趣" || text^="关闭此"][clickable=true]',
+            '@[clickable=true] > [text="不感兴趣" || text^="关闭此" || text="关闭本次展示"]',
+            '[text="不感兴趣" || text^="关闭此" || text="关闭本次展示"][clickable=true]',
           ],
           snapshotUrls: [
             'https://i.gkd.li/i/13816454', //不感兴趣
@@ -273,6 +296,7 @@ export default defineGkdApp({
             'https://i.gkd.li/i/24189605', //关闭此广告
             'https://i.gkd.li/i/14540281', //关闭此条广告
             'https://i.gkd.li/i/32435735', //不感兴趣
+            'https://i.gkd.li/i/34167884', //关闭本次展示
           ],
           exampleUrls: 'https://e.gkd.li/e04bcb90-ad61-43d9-97e9-b4f6e3873320',
         },
