@@ -159,13 +159,17 @@ export default defineGkdApp({
             '.business.playernew.view.NewPlayerActivity',
           ],
           matches:
-            '@ImageView[childCount=0][visibleToUser=true][width<130 && height<130] <<(7,8,9) [id="android:id/content"]',
+            '@ImageView[id=null][text=null][desc=null][childCount=0][visibleToUser=true][width<130 && height<130] <<(7,8,9) [id="android:id/content"]',
           snapshotUrls: [
             'https://i.gkd.li/i/18439138',
             'https://i.gkd.li/i/22924866',
             'https://i.gkd.li/i/20745872',
             'https://i.gkd.li/i/22699223',
             'https://i.gkd.li/i/30530361',
+          ],
+          excludeSnapshotUrls: [
+            'https://i.gkd.li/i/34188274', //用 [id=null] 排除
+            'https://i.gkd.li/i/34188273', //用 [id=null][desc=null] 排除
           ],
           exampleUrls: 'https://e.gkd.li/881cddd2-e4ec-472e-8bf8-00f26f61cbc4',
         },

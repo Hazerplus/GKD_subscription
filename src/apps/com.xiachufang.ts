@@ -59,6 +59,12 @@ export default defineGkdApp({
           ],
         },
         {
+          key: 2,
+          matches:
+            '@ImageView[clickable=true][width<115] + [text*="应用"][text*="隐私协议"][text.length>10]',
+          snapshotUrls: 'https://i.gkd.li/i/34166241',
+        },
+        {
           key: 3,
           matches: '@[clickable=true] > [text="不感兴趣"]',
           snapshotUrls: 'https://i.gkd.li/i/13454534',

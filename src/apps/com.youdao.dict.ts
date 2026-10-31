@@ -181,7 +181,7 @@ export default defineGkdApp({
     },
     {
       key: 8,
-      name: '局部广告-卡片广告',
+      name: '局部广告',
       desc: '点击关闭',
       fastQuery: true,
       rules: [
@@ -192,16 +192,17 @@ export default defineGkdApp({
             '.activity.DictQueryActivity',
           ],
           matches:
-            '[vid="aivClose" || vid="course_one_course_close" || vid="home_ad_close" || vid="course_four_course_close" || vid="promotion_close_zone"][visibleToUser=true]',
+            '[vid="aivClose" || vid="course_one_course_close" || vid="home_ad_close" || vid="course_four_course_close" || vid="promotion_close_zone" || vid="ivClose"][visibleToUser=true]',
           exampleUrls: 'https://e.gkd.li/df92c524-c732-4c16-9266-326056c9acf8',
           snapshotUrls: [
             'https://i.gkd.li/i/14468564',
-            'https://i.gkd.li/i/14567234',
+            'https://i.gkd.li/i/14567234', //小悬浮窗广告
             'https://i.gkd.li/i/14895765',
             'https://i.gkd.li/i/14009705',
             'https://i.gkd.li/i/14559287',
             'https://i.gkd.li/i/17082441',
             'https://i.gkd.li/i/17115693',
+            'https://i.gkd.li/i/34186897',
           ],
           excludeSnapshotUrls: 'https://i.gkd.li/i/14468628', // visibleToUser=true 防止在此页面选中屏幕外节点
         },
