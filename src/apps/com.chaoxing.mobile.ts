@@ -74,6 +74,7 @@ export default defineGkdApp({
           activityIds: [
             '.notify.ui.NoticeBodyActivity',
             '.webapp.ui.WebAppCommonViewer',
+            '.group.ui.TopicBodyActivity',
           ],
           matches: [
             '[text*="剪贴板内容已更新"][visibleToUser=true]',
@@ -82,6 +83,7 @@ export default defineGkdApp({
           snapshotUrls: [
             'https://i.gkd.li/i/33947533',
             'https://i.gkd.li/i/34332781',
+            'https://i.gkd.li/i/34748077',
           ],
           exampleUrls: 'https://e.gkd.li/c5a068c5-33ee-4911-a1a8-238b73097f53',
         },
@@ -144,11 +146,36 @@ export default defineGkdApp({
           fastQuery: true,
           action: 'back',
           actionDelay: 300,
-          activityIds: '.webapp.ui.WebAppViewerActivity',
+          activityIds: [
+            '.webapp.ui.WebAppViewerActivity',
+            '.webapp.ui.WebAppCommonViewer',
+          ],
           matches:
             '@[text="签到成功"] <2 WebView < WebView <2 [vid="web_view_fragment_refresh_layout"]',
-          snapshotUrls: 'https://i.gkd.li/i/33947532',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33947532',
+            'https://i.gkd.li/i/34723724',
+          ],
           exampleUrls: 'https://e.gkd.li/3705832f-59e5-44f2-b39a-cf4878be6f4f',
+        },
+      ],
+    },
+    {
+      key: 14,
+      name: '功能类-签到失败后弹窗',
+      desc: '点击[知道了]',
+      rules: [
+        {
+          fastQuery: true,
+          actionDelay: 300,
+          activityIds: [
+            '.webapp.ui.WebAppViewerActivity',
+            '.webapp.ui.WebAppCommonViewer',
+          ],
+          matches:
+            '@[text="知道了"] < ListView < View - [text*="签到失败"] < View <3 WebView < WebView <2 [vid="web_view_fragment_refresh_layout"]',
+          snapshotUrls: 'https://i.gkd.li/i/34723729',
+          exampleUrls: 'https://e.gkd.li/e6f3eb7a-3890-4c98-95a6-c09262a2b071',
         },
       ],
     },
