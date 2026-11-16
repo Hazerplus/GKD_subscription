@@ -155,8 +155,12 @@ export default defineGkdApp({
           name: '首页',
           matchRoot: true, // 截取快照才触发，加上试试
           activityIds: 'com.taobao.tao.welcome.Welcome',
-          matches: '[desc.length=4] < * + @[clickable=true] > [text="뉜"]', // 实机测试过，"뉜"韩语？是关闭按钮有作用
-          snapshotUrls: 'https://i.gkd.li/i/25658605',
+          matches:
+            'FrameLayout[childCount=4] > ImageView + LinearLayout[childCount=2] + [childCount=1] + @[clickable=true] > [text="뉜"]', // 实机测试过，"뉜"韩语？是关闭按钮有作用
+          snapshotUrls: [
+            'https://i.gkd.li/i/25658605',
+            'https://i.gkd.li/i/34881835',
+          ],
           exampleUrls: 'https://e.gkd.li/97345886-418c-4a43-a5e2-014ee822b6a2',
         },
       ],
@@ -458,6 +462,33 @@ export default defineGkdApp({
           ],
           snapshotUrls: 'https://i.gkd.li/i/26426385',
           exampleUrls: 'https://e.gkd.li/535839e5-4912-4c7e-96a4-d9b39a420a32',
+        },
+      ],
+    },
+    {
+      key: 24,
+      name: '功能类-删除订单直接确认',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'com.taobao.tao.welcome.Welcome',
+          matches:
+            '@[desc="确定"][clickable=true] <2 [childCount=2] -3 [desc="确认删除订单?"][visibleToUser=true] < [childCount=4] <<(6-n) [id="android:id/content"]',
+          snapshotUrls: 'https://i.gkd.li/i/34883506',
+          exampleUrls: 'https://e.gkd.li/144c8e02-239b-4a68-904b-5a923a6408dd',
+        },
+      ],
+    },
+    {
+      key: 25,
+      name: '评价提示-商品评论区评价满意度',
+      desc: '评论插入满意度卡片 -> 关闭',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'com.taobao.android.detail.alittdetail.TTDetailActivity',
+          matches:
+            '@Button[desc="关闭"][clickable=true] - View[desc="你对看到的评价内容满意吗？"] <n View[childCount>8] <<(5-n) View[childCount=3] <<(5-n) [vid="dialog_fragment_layout_container"]',
         },
       ],
     },

@@ -264,18 +264,27 @@ export default defineGkdApp({
       desc: '适合观看细节场景需求',
       fastQuery: true,
       actionMaximum: 1,
-      actionDelay: 3000, // 界面稳定后执行
       activityIds: 'com.xingin.matrix.detail.activity.DetailFeedActivity',
       rules: [
         {
           key: 0,
-          matches: '[vid="layer_player"][visibleToUser=true]',
+          name: '长按视频',
+          actionDelay: 1000, // 界面稳定后执行
+          matches: [
+            '[vid="area_progress"][visibleToUser=true][desc.get(4).toInt()=0 && desc.get(7)="秒" && desc.get(6).toInt()<3]', // 视频播放时长小于<3s有效
+            '[vid="layer_player"][visibleToUser=true]',
+          ],
           action: 'longClick',
-          snapshotUrls: 'https://i.gkd.li/i/25854264',
+          snapshotUrls: [
+            'https://i.gkd.li/i/34879203', // [desc="已播放到0分0秒，共4分15秒"]
+            'https://i.gkd.li/i/25854264', // [desc="已播放到0分10秒，共0分52秒"]
+            'https://i.gkd.li/i/34880084', // [desc="已播放到2分22秒，共4分25秒"]
+          ],
           exampleUrls: 'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54',
         },
         {
           preKeys: [0],
+          name: '点"倍速',
           matches:
             '[vid="video_speed_setting_ll"] > [vid="speed_selection_1"][visibleToUser=true]',
           snapshotUrls: 'https://i.gkd.li/i/25854394',
@@ -292,25 +301,23 @@ export default defineGkdApp({
       desc: '适合日常效率需求',
       fastQuery: true,
       actionMaximum: 1,
-      actionDelay: 3000, // 界面稳定后执行
       activityIds: 'com.xingin.matrix.detail.activity.DetailFeedActivity',
       rules: [
         {
           key: 0,
-          matches: '[vid="layer_player"][visibleToUser=true]',
+          name: '长按视频',
+          actionDelay: 1000, // 界面稳定后执行
+          matches: [
+            '[vid="area_progress"][visibleToUser=true][desc.get(4).toInt()=0 && desc.get(7)="秒" && desc.get(6).toInt()<3]', // 视频播放时长小于<3s有效
+            '[vid="layer_player"][visibleToUser=true]',
+          ],
           action: 'longClick',
-          snapshotUrls: 'https://i.gkd.li/i/25854264',
-          exampleUrls: 'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54',
         },
         {
           preKeys: [0],
+          name: '点"倍速',
           matches:
             '[vid="video_speed_setting_ll"] > [vid="speed_selection_3"][visibleToUser=true]',
-          snapshotUrls: 'https://i.gkd.li/i/25854394',
-          exampleUrls: [
-            'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54', // 倍速弹窗
-            'https://e.gkd.li/65ae2f11-3412-4f0a-a255-ffa5916bd9d9', // 成功点击后提示
-          ],
         },
       ],
     },
@@ -319,25 +326,23 @@ export default defineGkdApp({
       name: '功能类-自动倍速⏩x1.5⚠️五选一',
       fastQuery: true,
       actionMaximum: 1,
-      actionDelay: 3000, // 界面稳定后执行
       activityIds: 'com.xingin.matrix.detail.activity.DetailFeedActivity',
       rules: [
         {
           key: 0,
-          matches: '[vid="layer_player"][visibleToUser=true]',
+          name: '长按视频',
+          actionDelay: 1000, // 界面稳定后执行
+          matches: [
+            '[vid="area_progress"][visibleToUser=true][desc.get(4).toInt()=0 && desc.get(7)="秒" && desc.get(6).toInt()<3]', // 视频播放时长小于<3s有效
+            '[vid="layer_player"][visibleToUser=true]',
+          ],
           action: 'longClick',
-          snapshotUrls: 'https://i.gkd.li/i/25854264',
-          exampleUrls: 'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54',
         },
         {
           preKeys: [0],
+          name: '点"倍速',
           matches:
             '[vid="video_speed_setting_ll"] > [vid="speed_selection_4"][visibleToUser=true]',
-          snapshotUrls: 'https://i.gkd.li/i/25854394',
-          exampleUrls: [
-            'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54', // 倍速弹窗
-            'https://e.gkd.li/65ae2f11-3412-4f0a-a255-ffa5916bd9d9', // 成功点击后提示
-          ],
         },
       ],
     },
@@ -346,25 +351,23 @@ export default defineGkdApp({
       name: '功能类-自动倍速⏩x2.0⚠️五选一',
       fastQuery: true,
       actionMaximum: 1,
-      actionDelay: 3000, // 界面稳定后执行
       activityIds: 'com.xingin.matrix.detail.activity.DetailFeedActivity',
       rules: [
         {
           key: 0,
-          matches: '[vid="layer_player"][visibleToUser=true]',
+          name: '长按视频',
+          actionDelay: 1000, // 界面稳定后执行
+          matches: [
+            '[vid="area_progress"][visibleToUser=true][desc.get(4).toInt()=0 && desc.get(7)="秒" && desc.get(6).toInt()<3]', // 视频播放时长小于<3s有效
+            '[vid="layer_player"][visibleToUser=true]',
+          ],
           action: 'longClick',
-          snapshotUrls: 'https://i.gkd.li/i/25854264',
-          exampleUrls: 'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54',
         },
         {
           preKeys: [0],
+          name: '点"倍速',
           matches:
             '[vid="video_speed_setting_ll"] > [vid="speed_selection_5"][visibleToUser=true]',
-          snapshotUrls: 'https://i.gkd.li/i/25854394',
-          exampleUrls: [
-            'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54', // 倍速弹窗
-            'https://e.gkd.li/65ae2f11-3412-4f0a-a255-ffa5916bd9d9', // 成功点击后提示
-          ],
         },
       ],
     },
@@ -374,25 +377,23 @@ export default defineGkdApp({
       desc: 'Max效率需求',
       fastQuery: true,
       actionMaximum: 1,
-      actionDelay: 3000, // 界面稳定后执行
       activityIds: 'com.xingin.matrix.detail.activity.DetailFeedActivity',
       rules: [
         {
           key: 0,
-          matches: '[vid="layer_player"][visibleToUser=true]',
+          name: '长按视频',
+          actionDelay: 1000, // 界面稳定后执行
+          matches: [
+            '[vid="area_progress"][visibleToUser=true][desc.get(4).toInt()=0 && desc.get(7)="秒" && desc.get(6).toInt()<3]', // 视频播放时长小于<3s有效
+            '[vid="layer_player"][visibleToUser=true]',
+          ],
           action: 'longClick',
-          snapshotUrls: 'https://i.gkd.li/i/25854264',
-          exampleUrls: 'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54',
         },
         {
           preKeys: [0],
+          name: '点"倍速',
           matches:
             '[vid="video_speed_setting_ll"] >2 [vid="speed_selection_6"][visibleToUser=true]',
-          snapshotUrls: 'https://i.gkd.li/i/25854394',
-          exampleUrls: [
-            'https://e.gkd.li/3d621ea3-af7b-49cf-95bb-4fd54fcc5b54', // 倍速弹窗
-            'https://e.gkd.li/65ae2f11-3412-4f0a-a255-ffa5916bd9d9', // 成功点击后提示
-          ],
         },
       ],
     },
@@ -457,20 +458,24 @@ export default defineGkdApp({
         },
       ],
     },
-    // 存在`执行选择器`可用,但规则里就不可用问题
-    // {
-    //   key: 18,
-    //   name: '功能类-评论自动翻译',
-    //   rules: [
-    //     {
-    //       fastQuery: true,
-    //       activityIds: 'com.xingin.matrix.notedetail.NoteDetailActivity',
-    //       matches: '[text$="回复 翻译"][visibleToUser=true]',
-    //       snapshotUrls: 'https://i.gkd.li/i/26643975',
-    //       exampleUrls: 'https://e.gkd.li/fc8d70d4-f743-45df-a9d2-f343e419ccd9',
-    //     },
-    //   ],
-    // },
+    {
+      key: 18,
+      name: '功能类-评论自动翻译',
+      desc: '⚠️有可能触发[回复评论]情况,新版app暂无问题',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'com.xingin.matrix.notedetail.NoteDetailActivity',
+          matches:
+            '[vid="newTimePoiIpTransTv"][text$="回复 翻译"][visibleToUser=true]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/26643975',
+            'https://i.gkd.li/i/34877018',
+          ],
+          exampleUrls: 'https://e.gkd.li/fc8d70d4-f743-45df-a9d2-f343e419ccd9',
+        },
+      ],
+    },
     {
       key: 19,
       name: '功能类-自动关闭截屏弹窗',
@@ -488,6 +493,23 @@ export default defineGkdApp({
             'https://i.gkd.li/i/30751625',
           ],
           exampleUrls: 'https://e.gkd.li/c4bb2699-8e78-412c-92bd-47d35bb05616',
+        },
+      ],
+    },
+    {
+      key: 20,
+      name: '权限提示-定位权限',
+      fastQuery: true,
+      actionMaximum: 1,
+      resetMatch: 'app',
+      rules: [
+        {
+          key: 0,
+          activityIds: ['.index.v2.IndexActivityV2'],
+          matches:
+            '[vid="homepageNearbyPermissionTitle"][visibleToUser=true] +3 [vid="homepageNearbyPermissionCancel"][clickable=true]',
+          snapshotUrls: 'https://i.gkd.li/i/34877280',
+          exampleUrls: 'https://e.gkd.li/515fd995-ed06-4508-b1fb-a55cdd8c7888',
         },
       ],
     },
