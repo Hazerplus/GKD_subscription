@@ -300,13 +300,16 @@ export default defineGkdApp({
           ],
           action: 'clickCenter',
           matches:
-            '@Button[text="关闭弹窗" || desc="关闭弹窗"][clickable=true] <n View[childCount>1] <<(1,2) View[id="main"] <<2 WebView[text="拼多多"] <<3 FrameLayout[vid!=null] <2 ViewGroup <2 FrameLayout <<3 [id="android:id/content"]',
+            '@Button[text="关闭弹窗" || desc="关闭弹窗"][clickable=true] <n View[childCount>1] <<(1,2) View[id="main"] <<2 WebView[text="拼多多" || text=""] <<3 FrameLayout[vid!=null] <2 ViewGroup <2 FrameLayout <<3 [id="android:id/content"]',
           snapshotUrls: [
             'https://i.gkd.li/i/13308175', // 老快照无vid
+            // WebView[text="拼多多"]
             'https://i.gkd.li/i/13927594',
             'https://i.gkd.li/i/14434154',
             'https://i.gkd.li/i/14456017',
             'https://i.gkd.li/i/23256823',
+            // WebView[text=""]
+            'https://i.gkd.li/i/34986289',
           ],
         },
         {
@@ -475,7 +478,10 @@ export default defineGkdApp({
           fastQuery: true,
           action: 'clickCenter', // 不响应无障碍事件
           matches: '[text="展开"][visibleToUser=true]',
+          excludeMatches:
+            '[text="轻触照亮" || text$="相册"][clickable=true][visibleToUser=true]',
           snapshotUrls: 'https://i.gkd.li/i/29405868',
+          excludeSnapshotUrls: 'https://i.gkd.li/i/34986764', // 拍照搜商品
         },
         {
           key: 1,
@@ -668,6 +674,21 @@ export default defineGkdApp({
           matches: '[id=null][text="立即加入抽福袋"][visibleToUser=true]',
           snapshotUrls: 'https://i.gkd.li/i/30295232',
           exampleUrls: 'https://e.gkd.li/a057d535-db79-4faa-9c8f-69069dee91f6',
+        },
+      ],
+    },
+    {
+      key: 34,
+      name: '功能类-搜索页-长按词条直接删除',
+      desc: '你的搜索商品历史,长按一个词条-> x掉',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.activity.NewPageActivity',
+          matches:
+            '[desc^="清除"][clickable=true] - [text="最近搜索"] - [vid="icon"] < RelativeLayout[childCount=3] + ViewGroup > [text=""][clickable=true][visibleToUser=true]',
+          snapshotUrls: 'https://i.gkd.li/i/34990299',
+          exampleUrls: 'https://e.gkd.li/fbb6437e-63fe-4b6e-8685-8ec5b5d32353',
         },
       ],
     },
